@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+ <ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{comodoBean.carregarPesquisa}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+ 	
+	<ui:define name="conteudo">
+		<h:form id="formcomodo">
+			<!-- columns="4"  dois por linha no painelGrid -->
+			<p:toolbar>
+				<f:facet name="left">
+				<h:outputText value="Comodo"></h:outputText>
+				</f:facet>
+			</p:toolbar>
+
+			
+			<!--  value  todos / filter  somente  filtrados  //
+			 var aponta o fabricante  corrente(cursor) 
+			 footer rodapé-->
+
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+				value="#{comodoBean.listaComodos}"
+				filteredValue="#{comodoBean.listaComodosFiltrados}"
+				var="comodo" paginator="true"
+				id="dtcomodo">
+				<f:facet name="footer">
+					<p:button value="Novo"
+						outcome="/Pages/comodo/comodoCadastro.xhtml?faces-redirect=true"
+						id="btnovo">
+						<f:param name="cmdAcao" value="Salvar"/>
+					</p:button>
+				</f:facet>
+
+				<!-- filterBy="" filtrar  sortBy="" ordenar -->
+				<p:column headerText="Codigo">
+					<h:outputText value="#{comodo.codigo}"></h:outputText>
+				</p:column>
+				<p:column headerText="Descricao" filterBy="#{comodo.descricao}"
+					sortBy="#{comodo.descricao}">
+					<h:outputText value="#{comodo.descricao}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:button value="Excluir"
+					id="btExcluir"
+						outcome="/Pages/comodo/comodoCadastro.xhtml?faces-redirect=true">
+						<f:param name="cmdAcao" value="Excluir"/>
+						<f:param name="cmdCod" value="#{comodo.codigo}"/>
+					</p:button>
+
+					<p:button value="Editar"
+						outcome="/Pages/comodo/comodoCadastro.xhtml?faces-redirect=true">
+						<f:param name="cmdAcao" value="Editar"/>
+						<f:param name="cmdCod" value="#{comodo.codigo}"/>
+					</p:button>
+
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+ </ui:composition>
+ 
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{dispositivoBean.carregarPesquisa}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formdispositivo">
+			<!-- columns="4"  dois por linha no painelGrid -->
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Dispositivo"></h:outputText>
+				</f:facet>
+			</p:toolbar>
+
+
+			<!--  value  todos / filter  somente  filtrados  //
+			 var aponta o fabricante  corrente(cursor) 
+			 footer rodapé-->
+
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+				value="#{dispositivoBean.listaDispositivos}"
+				filteredValue="#{dispositivoBean.listaDispositivosFiltrados}"
+				var="dispositivo" paginator="true" id="dtdispositivo">
+				<f:facet name="footer">
+					<p:button value="Novo"
+						outcome="/Pages/dispositivo/dispositivoCadastro.xhtml?faces-redirect=true"
+						id="btnovo">
+						<f:param name="dispAcao" value="Salvar" />
+					</p:button>
+				</f:facet>
+
+				<!-- filterBy="" filtrar  sortBy="" ordenar -->
+				<p:column headerText="Codigo">
+					<h:outputText value="#{dispositivo.codigo}"></h:outputText>
+				</p:column>
+				<p:column headerText="Descricao" filterBy="#{dispositivo.descricao}"
+					sortBy="#{dispositivo.descricao}">
+					<h:outputText value="#{dispositivo.descricao}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:button value="Excluir" id="btExcluir"
+						outcome="/Pages/dispositivo/dispositivoCadastro.xhtml?faces-redirect=true">
+						<f:param name="dispAcao" value="Excluir" />
+						<f:param name="dispCod" value="#{dispositivo.codigo}" />
+					</p:button>
+
+					<p:button value="Editar"
+						outcome="/Pages/dispositivo/dispositivoCadastro.xhtml?faces-redirect=true">
+						<f:param name="dispAcao" value="Editar" />
+						<f:param name="dispCod" value="#{dispositivo.codigo}" />
+					</p:button>
+
+
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

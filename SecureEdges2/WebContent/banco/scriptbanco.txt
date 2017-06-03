@@ -1,0 +1,92 @@
+CREATE TABLE IF NOT EXISTS `db_secureedges`.`tb_comodo` (
+  `cmdo_Codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `cmdo_Descricao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`cmdo_Codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8
+
+CREATE TABLE IF NOT EXISTS `db_secureedges`.`tb_comodo` (
+  `cmdo_Codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `cmdo_Descricao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`cmdo_Codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8
+
+CREATE TABLE IF NOT EXISTS `db_secureedges`.`tb_solicitacao` (
+  `sol_Codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `sol_Status` VARCHAR(45) NOT NULL,
+  `tb_Dispositivo_disp_Codigo` INT(11) NOT NULL,
+  `tb_Comodo_cmdo_Codigo` INT(11) NOT NULL,
+  `sol_descricao` VARCHAR(45) NOT NULL,
+  `sol_data` VARCHAR(45) NOT NULL,
+  `tb_Usuario_usr_Codigo` INT(11) NOT NULL,
+  `tb_Usuario_usr_Nome` VARCHAR(45) CHARACTER SET 'big5' NOT NULL,
+  PRIMARY KEY (`sol_Codigo`),
+  INDEX `tb_Dispositivo_disp_Codigo_idx` (`tb_Dispositivo_disp_Codigo` ASC),
+  INDEX `tb_Comodo_cmdo_Codigo_idx` (`tb_Comodo_cmdo_Codigo` ASC),
+  INDEX `tb_Usuario_usr_Codigo_idx` (`tb_Usuario_usr_Codigo` ASC),
+  CONSTRAINT `tb_Comodo_cmdo_Codigo`
+    FOREIGN KEY (`tb_Comodo_cmdo_Codigo`)
+    REFERENCES `db_secureedges`.`tb_comodo` (`cmdo_Codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `tb_Dispositivo_disp_Codigo`
+    FOREIGN KEY (`tb_Dispositivo_disp_Codigo`)
+    REFERENCES `db_secureedges`.`tb_dispositivo` (`disp_codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `tb_Usuario_usr_Codigo`
+    FOREIGN KEY (`tb_Usuario_usr_Codigo`)
+    REFERENCES `db_secureedges`.`tb_usuario` (`usr_Codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8
+
+
+CREATE TABLE IF NOT EXISTS `db_secureedges`.`tb_tp_dispositivo` (
+  `tp_disp_codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `tipo_descricao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`tp_disp_codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8
+
+
+CREATE TABLE IF NOT EXISTS `db_secureedges`.`tb_usuario` (
+  `usr_Codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `usr_CPF` VARCHAR(45) NOT NULL,
+  `usr_Email` VARCHAR(45) NOT NULL,
+  `end_Bairro` VARCHAR(45) NOT NULL,
+  `end_CEP` VARCHAR(45) NOT NULL,
+  `end_Cidade` VARCHAR(45) NOT NULL,
+  `end_Estado` VARCHAR(45) NOT NULL,
+  `end_Numero` VARCHAR(45) NOT NULL,
+  `end_Rua` VARCHAR(45) NOT NULL,
+  `usr_Idade` VARCHAR(45) NOT NULL,
+  `usr_Nome` VARCHAR(45) NOT NULL,
+  `usr_RG` VARCHAR(45) NOT NULL,
+  `usr_Senha` VARCHAR(45) NOT NULL,
+  `usr_Sexo` VARCHAR(45) NOT NULL,
+  `usr_Sobrenome` VARCHAR(45) NOT NULL,
+  `usr_Status` VARCHAR(45) NOT NULL,
+  `usr_Telefone` VARCHAR(45) NOT NULL,
+  `dtCadastro` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`usr_Codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+
+
+CREATE TABLE `db_secureedges`.`tb_dispositivo` (
+  `disp_codigo` INT NOT NULL AUTO_INCREMENT,
+  `disp_descricao` VARCHAR(45) NOT NULL,
+  `cmdo_Codigo` VARCHAR(45) NOT NULL,
+  `tp_disp_Codigo` VARCHAR(45) NOT NULL,
+  `interface_Arduino` VARCHAR(45) NOT NULL,
+  `disp_status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`disp_codigo`));
+
+DEFAULT CHARACTER SET = utf8

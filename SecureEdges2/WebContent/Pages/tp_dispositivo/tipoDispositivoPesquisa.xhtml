@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+ <ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{tipoDispositivoBean.carregarPesquisa}" type="preRenderView"></f:event>
+			<f:event listener="#{tipoDispositivoBean.carregarCadastro}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+ 	
+	<ui:define name="conteudo">
+		<h:form id="formtpdisp">
+			<!-- columns="4"  dois por linha no painelGrid -->
+			<p:toolbar>
+				<f:facet name="left">
+				<h:outputText value="Tipo Dispositivo"></h:outputText>
+				</f:facet>
+			</p:toolbar>
+
+			
+			<!--  value  todos / filter  somente  filtrados  //
+			 var aponta o fabricante  corrente(cursor) 
+			 footer rodapé-->
+
+
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+				value="#{tipoDispositivoBean.listaTipo_Dispositivos}"
+				filteredValue="#{tipoDispositivoBean.listaTipo_DispositivosFiltrados}"
+				var="tp_dispositivo" paginator="true"
+				id="dt_tp_dispositivo">
+				<f:facet name="footer">
+					<p:button value="Novo"
+						outcome="/Pages/tp_dispositivo/tipoDispositivoCadastro.xhtml?faces-redirect=true"
+						id="btnovo">
+						<f:param name="tpAcao" value="Salvar"/>
+					</p:button>
+				</f:facet>
+
+				<!-- filterBy="" filtrar  sortBy="" ordenar -->
+				<p:column headerText="Codigo">
+					<h:outputText value="#{tp_dispositivo.codigo}"></h:outputText>
+				</p:column>
+				<p:column headerText="Descricao" filterBy="#{tp_dispositivo.descricao}"
+					sortBy="#{tp_dispositivo.descricao}">
+					<h:outputText value="#{tp_dispositivo.descricao}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:button value="Excluir"
+					id="btExcluir"
+						outcome="/Pages/tp_dispositivo/tipoDispositivoCadastro.xhtml?faces-redirect=true">
+						<f:param name="tpAcao" value="Excluir"/>
+						<f:param name="tpCod" value="#{tp_dispositivo.codigo}"/>
+					</p:button>
+
+					<p:button value="Editar"
+						outcome="/Pages/tp_dispositivo/tipoDispositivoCadastro.xhtml?faces-redirect=true">
+						<f:param name="tpAcao" value="Editar"/>
+						<f:param name="tpCod" value="#{tp_dispositivo.codigo}"/>
+					</p:button>
+
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+ </ui:composition>
+ 
+</html>

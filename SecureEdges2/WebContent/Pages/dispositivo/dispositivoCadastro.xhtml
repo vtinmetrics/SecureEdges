@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{dispositivoBean.carregarPesquisaComodo}"
+				type="preRenderView" />
+			<f:event
+				listener="#{dispositivoBean.carregarPesquisaTipo_Dispositivos}"
+				type="preRenderView" />
+			<f:event listener="#{dispositivoBean.carregarCadastro}"
+				type="preRenderView" />
+			<f:viewParam name="dispAcao" value="#{dispositivoBean.acao}"></f:viewParam>
+			<f:viewParam name="dispCod" value="#{dispositivoBean.codigo}"></f:viewParam>
+		</f:metadata>
+	</ui:define>
+	<ui:define name="conteudo">
+		<!-- para inserir toolbar deve se ter o facet -->
+		<p:toolbar>
+			<f:facet name="left">
+				<h:outputText value="Dispositivo Cadastro"></h:outputText>
+			</f:facet>
+		</p:toolbar>
+		<h:form>
+			<div align="left">
+				<br />
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Código:"></h:outputLabel>
+					<h:inputText maxlength="20" size="10" disabled="true"
+						value="#{dispositivoBean.dispositivoCadastro.codigo}" />
+
+					<h:outputLabel value="Descricao"></h:outputLabel>
+					<h:inputText maxlength="50" size="30"
+						value="#{dispositivoBean.dispositivoCadastro.descricao}"
+						disabled="#{dispositivoBean.acao == 'Excluir'}"
+						id="inputDescricao" />
+
+
+					<h:panelGrid columns="2">
+						
+
+						<h:outputLabel value="Comodo"></h:outputLabel>
+						<p:selectOneMenu editable="false"
+							value="#{dispositivoBean.dispositivoCadastro.comodo.codigo}"
+							disabled="#{dispositivoBean.acao== 'Excluir'}">
+							<f:selectItems value="#{dispositivoBean.listaComodos}"
+								editable="false" var="genero" itemLabel="#{genero.descricao}"
+								itemValue="#{genero.codigo}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+
+						<h:outputLabel value="Tipo"></h:outputLabel>
+						<p:selectOneMenu
+							value="#{dispositivoBean.dispositivoCadastro.TP_Dispositivo.codigo}"
+							disabled="#{dispositivoBean.acao != 'Salvar'}">
+							<f:selectItems value="#{dispositivoBean.listaTipo_Dispositivos}"
+								var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+
+
+					<br></br>
+					<h:panelGrid columns="6">
+						<p:commandButton value="Novo"
+							actionListener="#{dispositivoBean.novo}"
+							action="/Pages/disposito/dispositoCadastro.xhtml?faces-redirect=true"
+							rendered="#{dispositivoBean.acao != 'Excluir' and dispositivoBean.acao != 'Editar'}" />
+						<!-- propriedade update serve para informar quem será atualizadovia ajax (id  do growl :msgglobal em template-->
+						<p:commandButton value="Salvar"
+							actionListener="#{dispositivoBean.salvar}" update=":msgGlobal"
+							rendered="#{dispositivoBean.acao != 'Excluir' and dispositivoBean.acao != 'Editar'}" />
+						<p:commandButton value="Excluir"
+							actionListener="#{dispositivoBean.excluir}" update=":msgGlobal"
+							rendered="#{dispositivoBean.acao== 'Excluir'}"
+							id="btnExcluir" />
+
+						<p:commandButton value="Editar"
+							actionListener="#{dispositivoBean.editar}" update=":msgGlobal"
+							rendered="#{dispositivoBean.acao == 'Editar'}" />
+						<p:commandButton value="Desativar"
+							actionListener="#{dispositivoBean.manipular}" update=":msgGlobal"
+							rendered="#{dispositivoBean.dispositivoCadastro.status == 'Ativo'}" />
+						<p:commandButton value="Ativar"
+							actionListener="#{dispositivoBean.manipular}" update=":msgGlobal"
+							rendered="#{dispositivoBean.dispositivoCadastro.status == 'Desativado'}" />
+
+						<p:commandButton value="Voltar"
+							action="/Pages/dispositivo/dispositivoPesquisa.xhtml?faces-redirect=true" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

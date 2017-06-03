@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{dispositivoBean.carregarPesquisaComodo}"
+				type="preRenderView" />
+			<f:event
+				listener="#{dispositivoBean.carregarPesquisaTipo_Dispositivos}"
+				type="preRenderView" />
+			<f:event listener="#{dispositivoBean.carregarCadastro}"
+				type="preRenderView" />
+			<f:viewParam name="dispCod"
+				value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.codigo}"></f:viewParam>
+			<f:viewParam name="cmdCod"
+				value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.comodo.codigo}"></f:viewParam>
+			<f:viewParam name="dispDes"
+				value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.descricao}"></f:viewParam>
+			<f:viewParam name="SolAcao"
+				value="#{solicitacaoBean.acao}"></f:viewParam>
+		</f:metadata>
+	</ui:define>
+	<ui:define name="conteudo">
+		<!-- para inserir toolbar deve se ter o facet -->
+		<p:toolbar>
+			<f:facet name="left">
+				<h:outputText value="Dispositivo Cadastro"></h:outputText>
+			</f:facet>
+		</p:toolbar>
+		<h:form>
+			<div align="left">
+				<br />
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Código:"></h:outputLabel>
+					<h:inputText maxlength="20" size="10" disabled="true"
+						value="#{solicitacaoBean.solicitacaoCadastro.codigo}" />
+
+					<h:outputLabel value="Descricao"></h:outputLabel>
+					<h:inputTextarea maxlength="100" size="1000"
+						value="#{solicitacaoBean.solicitacaoCadastro.descricao}"
+						disabled="#{dispositivoBean.acao == 'Excluir'}" />
+
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Dispositivo: "></h:outputLabel>
+						<h:outputText maxlength="50" size="30"
+							value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.descricao}" />
+
+
+						<h:outputLabel value="Comodo"></h:outputLabel>
+						<p:selectOneMenu
+							value="#{solicitacaoBean.solicitacaoCadastro.comodo.codigo}"
+							disabled="#{dispositivoBean.acao== 'Excluir'}">
+							<f:selectItems value="#{dispositivoBean.listaComodos}"
+								var="genero" itemLabel="#{genero.descricao}"
+								itemValue="#{solicitacaoBean.solicitacaoCadastro.dispositivo.comodo.codigo}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+
+						<h:outputLabel value="Tipo"></h:outputLabel>
+						<p:selectOneMenu
+							value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.TP_Dispositivo.codigo}"
+							disabled="#{dispositivoBean.acao== 'Excluir'}">
+							<f:selectItems value="#{dispositivoBean.listaTipo_Dispositivos}"
+								var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+
+
+					<br></br>
+					<h:panelGrid columns="6">
+
+						<!-- propriedade update serve para informar quem será atualizadovia ajax (id  do growl :msgglobal em template-->
+						<p:commandButton value="Salvar"
+							actionListener="#{solicitacaoBean.salvar}" update=":msgGlobal"
+							rendered="#{dispositivoBean.acao != 'Excluir' and dispositivoBean.acao != 'Editar'}" />
+
+
+						<p:commandButton value="Voltar"
+							action="/Pages/dispositivo/dispositivoPesquisa.xhtml?faces-redirect=true" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
