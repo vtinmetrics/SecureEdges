@@ -44,7 +44,7 @@
 				data.addColumn('string', 'Month');
 		<%for (EntidadeDominio disp : dispositivos) {
 				Dispositivo temp_disp = (Dispositivo) disp;
-				out.print("data.addColumn('number','" + temp_disp + "');\n");
+				out.print("data.addColumn('number','" + temp_disp.getDescricao() + "');\n");
 			}
 
 			for (Mes mt : solicitacao.getListMes()) {
@@ -63,11 +63,11 @@
 					if (existe != true) {
 						out.print("row.push('" + 0 + "');\n");
 					}
-
+					out.print("data.addRow(row);");
+					out.print("row = [];");
 				}
 				//javaCode += ");\n";
-				out.print("data.addRow(row);");
-				out.print("row = [];");
+				
 				//out.print(javaCode);
 			}%>
 			var options = {
