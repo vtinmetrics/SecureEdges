@@ -41,7 +41,7 @@
 				var row = new Array();
 
 				var data = new google.visualization.DataTable();
-				data.addColumn('string', 'Month');
+				data.addColumn('string', 'Mes');
 		<%for (EntidadeDominio disp : dispositivos) {
 				Dispositivo temp_disp = (Dispositivo) disp;
 				out.print("data.addColumn('number','" + temp_disp.getDescricao() + "');\n");
@@ -66,14 +66,16 @@
 				out.print("data.addRow(row);\n");
 				out.print("row = [];\n");
 			}%>
-			var options = {
-					title :
-		<%out.print("'" + solicitacao.getTitulo() + "'");%>
-			,
+			var options = 
+			{
+					title :<%out.print("'" + "Titulo" + "'");%>,
+					vAxis: {title: 'Cups'},
+				    hAxis: {title: 'Month'},
+				    seriesType: 'bars',
 					pointSize : 5
 				};
 
-				var chart = new google.visualization.LineChart(document
+				var chart = new google.visualization.ComboChart(document
 						.getElementById('chart1'));
 
 				chart.draw(data, options);
