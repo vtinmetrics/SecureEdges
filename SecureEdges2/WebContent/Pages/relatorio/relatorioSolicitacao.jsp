@@ -59,7 +59,7 @@
 						}
 					}
 					if (existe != true) {
-						out.print("row.push('" + 0 + "');\n");
+						out.print("row.push(0);\n");
 					}
 					
 				}
