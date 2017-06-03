@@ -48,9 +48,7 @@
 			}
 
 			for (Mes mt : solicitacao.getListMes()) {
-				//String javaCode = "data.addRow('"+mt.getName()+"',";
 				out.print("row.push('" + mt.getNome() + "');\n");
-				//int i = 0 ;
 				for (EntidadeDominio disp : dispositivos) {
 					existe = false;
 					Dispositivo temp_disp = (Dispositivo) disp;
@@ -63,12 +61,10 @@
 					if (existe != true) {
 						out.print("row.push('" + 0 + "');\n");
 					}
-					out.print("data.addRow(row);");
-					out.print("row = [];");
+					
 				}
-				//javaCode += ");\n";
-				
-				//out.print(javaCode);
+				out.print("data.addRow(row);\n");
+				out.print("row = [];\n");
 			}%>
 			var options = {
 					title :
