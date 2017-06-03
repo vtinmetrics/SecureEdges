@@ -27,7 +27,7 @@
 
 
 
-	<div id="chart1" style="width: 650px; height: 600px;">
+	<div id="chart1" style="width: 950px; height: 800px;">
 		<script type="text/javascript">
 			// Load the Visualization API and the corechart package.
 			google.charts.load('current', {
@@ -54,7 +54,7 @@
 					Dispositivo temp_disp = (Dispositivo) disp;
 					for (Solicitacao sol : mt.getListDispositivo()) {
 						if (temp_disp.getCodigo() == sol.getDispositivo().getCodigo()) {
-							out.print("row.push('" + sol.getQtde() + "');\n");
+							out.print("row.push(" + sol.getQtde() + ");\n");
 							existe = true;
 						}
 					}
@@ -68,9 +68,9 @@
 			}%>
 			var options = 
 			{
-					title :<%out.print("'" + "Titulo" + "'");%>,
-					vAxis: {title: 'Cups'},
-				    hAxis: {title: 'Month'},
+					title :<%out.print("'" + "Solicitações criadas por mês" + "'");%>,
+					vAxis: {title: 'Solicitações'},
+				    hAxis: {title: 'Mes'},
 				    seriesType: 'bars',
 					pointSize : 5
 				};
