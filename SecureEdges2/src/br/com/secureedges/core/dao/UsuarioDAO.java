@@ -195,7 +195,7 @@ public class UsuarioDAO implements IDAO {
 			PreparedStatement pstm = (PreparedStatement) con.prepareStatement(sql.toString());
 			pstm.setLong(1, usuario.getCodigo());
 			pstm.executeUpdate();
-			FacesUtil.adicionarMSGInfo("Removido com sucesso!");
+			//FacesUtil.adicionarMSGInfo("Removido com sucesso!");
 
 		} catch (Exception e) {
 			e.printStackTrace();

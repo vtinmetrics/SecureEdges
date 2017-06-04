@@ -17,16 +17,13 @@ public class Grafico extends EntidadeDominio {
 	public List<EntidadeDominio> dispositivos = new ArrayList<>();
 
 	public Grafico() {
-		for(EntidadeDominio dispositivo :dispositivosaux){
-			
-			if(dispositivo instanceof Dispositivo){
+		for (EntidadeDominio dispositivo : dispositivosaux) {
+
+			if (dispositivo instanceof Dispositivo) {
 				dispositivos.add(dispositivoDAO.buscarPorCodigo(dispositivo.getCodigo()));
 			}
-			
-		}
-			
-		
-	
 
-}
+		}
+
 	}
+}

@@ -58,14 +58,16 @@
 				<p:column headerText="Opções">
 					<p:commandButton value="Aprovar" id="btAprovar"  update=":msgGlobal"
 					rendered="#{solicitacao.status != 'aprovada'or solicitacao.status == 'novo'}"
-						actionListener="#{solicitacaoBean.manipularSolicitacao}">
+						actionListener="#{solicitacaoBean.manipularSolicitacao}"
+						action="/Pages/solicitacao/solicitacaoPesquisa.xhtml?faces-redirect=true">
 						<f:param name="solAcao" value="Editar" />
 						<f:param name="solCod" value="#{solicitacao.codigo}" />
 						<f:param name="solSts" value="aprovada" />
 					</p:commandButton>
 					<p:commandButton value="Reprovar" id="btreprovar"  update=":msgGlobal"
 					rendered="#{solicitacao.status != 'reprovada' or solicitacao.status == 'novo'}"
-						actionListener="#{solicitacaoBean.manipularSolicitacao}">
+						actionListener="#{solicitacaoBean.manipularSolicitacao}"
+						action="/Pages/solicitacao/solicitacaoPesquisa.xhtml?faces-redirect=true">
 						<f:param name="solAcao" value="Editar" />
 						<f:param name="solCod" value="#{solicitacao.codigo}" />
 						<f:param name="solSts" value="reprovada" />

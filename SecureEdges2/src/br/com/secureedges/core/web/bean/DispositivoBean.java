@@ -282,22 +282,22 @@ public class DispositivoBean extends EntidadeDominio {
 			if (dispositivo.getDisp_status() == 0) {
 				power = 1;
 				dispositivo.setDisp_status(1);
-			} else if(dispositivo.getDisp_status() == 1) {
+			} else if (dispositivo.getDisp_status() == 1) {
 				power = 0;
 				dispositivo.setDisp_status(0);
 			}
-			
-			System.out.println("o status agora é:" + dispositivo.getDisp_status());
 
+			System.out.println("o status agora é:" + dispositivo.getDisp_status());
 
 			String aux = dispositivo.getInterface_Arduino().toString();
 			int teste = Integer.parseInt(aux);
 
 			System.out.println("Send power:" + power + "\n Interface: " + teste);
-			objArduino.getLink().sendPowerPinSwitch(teste, power); // Send energy to
-													// the right pin
-													// of your
-													// sensor
+			objArduino.getLink().sendPowerPinSwitch(teste, power); // Send
+																	// energy to
+			// the right pin
+			// of your
+			// sensor
 			ICommand command = commands.get("Editar");
 			/*
 			 * Executa o command que chamará a fachada para executar a operação
@@ -319,24 +319,39 @@ public class DispositivoBean extends EntidadeDominio {
 		try {
 			SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
 			List<EntidadeDominio> solicitacoes = solicitacaoDAO.listar();
+			DispositivoDAO dispositivoDAO =  new DispositivoDAO();
+			List<Long> ids = new ArrayList<>();
 			for (EntidadeDominio solicitacao : solicitacoes) {
 				if (((Solicitacao) solicitacao).getStatus().equals("aprovada")) {
-					DispositivoDAO dao = new DispositivoDAO();
 					if (solicitacao instanceof Solicitacao) {
 						if (((Solicitacao) solicitacao).getUsuario().getCodigo() == autenticacaoBean.getUsuarioLogado()
 								.getCodigo()) {
-							listaDispositivos
-									.add(dao.buscarPorCodigo(((Solicitacao) solicitacao).getDispositivo().getCodigo()));
+						  ids.add(((Solicitacao) solicitacao).getDispositivo().getCodigo());
+							
+							}
+							
 						}
 					}
 				}
-
+			
+			for(long i =0; i < ids.size();i++){
+				if(dispositivoDAO.buscarPorCodigo(i).getCodigo() != 0){
+				listaDispositivos
+				.add(dispositivoDAO.buscarPorCodigo(i));}
 			}
-		} catch (RuntimeException ex) {
 
-			FacesUtil.adicionarMSGError("Erro ao tentar listar os  Dispositivoes:" + ex.getMessage());
+			
+			
+		
+			
+		}catch(
 
-		}
+	RuntimeException ex)
+	{
+
+		FacesUtil.adicionarMSGError("Erro ao tentar listar os  Dispositivoes:" + ex.getMessage());
+
 	}
+}
 
 }
