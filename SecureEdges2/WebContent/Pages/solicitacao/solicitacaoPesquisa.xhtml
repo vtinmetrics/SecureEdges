@@ -33,10 +33,9 @@
 				filteredValue="#{solicitacaoBean.listasolicitacoes}"
 				var="solicitacao" paginator="true" id="dtsolicitacao">
 				<f:facet name="footer">
-					<p:button value="Novo"
-						outcome="/Pages/solicitacao/solicitacaoCadastro.xhtml?faces-redirect=true"
-						id="btnovo">
-						<f:param name="dispAcao" value="Salvar" />
+					<p:button value="Relatorio"
+						outcome="/Pages/solicitacao/solicitacaoRelatorio.xhtml?faces-redirect=true"
+						id="btrelatorio">
 					</p:button>
 				</f:facet>
 
@@ -50,22 +49,22 @@
 				<p:column headerText="Dispositivo">
 					<h:outputText value="#{solicitacao.dispositivo.descricao}"></h:outputText>
 				</p:column>
-				<p:column headerText="Descricao" 
-					sortBy="#{solicitacao.descricao}">
+				<p:column headerText="Descricao" sortBy="#{solicitacao.descricao}">
 					<h:outputText value="#{solicitacao.descricao}"></h:outputText>
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton value="Aprovar" id="btAprovar"  update=":msgGlobal"
-					rendered="#{solicitacao.status != 'aprovada'or solicitacao.status == 'novo'}"
+					<p:commandButton value="Aprovar" id="btAprovar" update=":msgGlobal"
+						rendered="#{solicitacao.status != 'aprovada'or solicitacao.status == 'novo'}"
 						actionListener="#{solicitacaoBean.manipularSolicitacao}"
 						action="/Pages/solicitacao/solicitacaoPesquisa.xhtml?faces-redirect=true">
 						<f:param name="solAcao" value="Editar" />
 						<f:param name="solCod" value="#{solicitacao.codigo}" />
 						<f:param name="solSts" value="aprovada" />
 					</p:commandButton>
-					<p:commandButton value="Reprovar" id="btreprovar"  update=":msgGlobal"
-					rendered="#{solicitacao.status != 'reprovada' or solicitacao.status == 'novo'}"
+					<p:commandButton value="Reprovar" id="btreprovar"
+						update=":msgGlobal"
+						rendered="#{solicitacao.status != 'reprovada' or solicitacao.status == 'novo'}"
 						actionListener="#{solicitacaoBean.manipularSolicitacao}"
 						action="/Pages/solicitacao/solicitacaoPesquisa.xhtml?faces-redirect=true">
 						<f:param name="solAcao" value="Editar" />
@@ -74,7 +73,55 @@
 					</p:commandButton>
 				</p:column>
 
+
 			</p:dataTable>
+
+			<p:dialog closable="true" modal="true" draggable="true"
+				resizable="false" header="Relatorio" widgetVar="wvDlgRelatorio"
+				appendTo="@(body)" id="pdlVenda" width="1700" height="1700">
+				<h:form id="frmPdl">
+
+					<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+						value="#{solicitacaoBean.listasolicitacoes}"
+						filteredValue="#{solicitacaoBean.listasolicitacoes}"
+						var="solicitacao" paginator="true" id="dtsolicitacao">
+						<f:facet name="footer">
+							<p:button value="Novo"
+								outcome="/Pages/solicitacao/solicitacaoCadastro.xhtml?faces-redirect=true"
+								id="btnovo">
+								<f:param name="dispAcao" value="Salvar" />
+							</p:button>
+						</f:facet>
+						<f:facet name="header">
+							<h:commandLink>
+								<p:graphicImage name="pdf.jpg" width="24" library="images" />
+								<p:dataExporter type="pdf" target="dtsolicitacao2"
+									fileName="solicitacao" encoding="ISO-8859-1" />
+							</h:commandLink>
+
+						</f:facet>
+
+						<!-- filterBy="" filtrar  sortBy="" ordenar -->
+						<p:column headerText="Codigo">
+							<h:outputText value="#{solicitacao.codigo}"></h:outputText>
+						</p:column>
+						<p:column headerText="Usuario">
+							<h:outputText value="#{solicitacao.usuario.nome}"></h:outputText>
+						</p:column>
+						<p:column headerText="Dispositivo">
+							<h:outputText value="#{solicitacao.dispositivo.descricao}"></h:outputText>
+						</p:column>
+						<p:column headerText="Descricao" sortBy="#{solicitacao.descricao}">
+							<h:outputText value="#{solicitacao.descricao}"></h:outputText>
+						</p:column>
+
+
+
+					</p:dataTable>
+
+				</h:form>
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

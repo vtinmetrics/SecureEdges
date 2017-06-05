@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:insert name="metadata" />
+
+<f:metadata>
+	<f:event listener="#{usuarioBean.carregarPesquisa}"
+		type="preRenderView"></f:event>
+</f:metadata>
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Secure Edges</title>
+</h:head>
+
+<h:body>
+	<p:growl id="msgGlobal" />
+	<p:layout fullPage="true">
+
+
+
+		<!--     <p:layoutUnit position="east" size="200" header="direita" resizable="false" closable="false" collapsible="false" effect="drop"> -->
+		<!--         <h:outputText value="Right unit content." /> -->
+		<!--     </p:layoutUnit> -->
+
+		<p:layoutUnit position="center" resizable="false" closable="false"
+			maxSize="3050" size="3050" collapsible="false">
+			<ui:insert name="conteudo"></ui:insert>
+			<h:form id="formusuario">
+				<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+					value="#{usuarioBean.listaUsuarios}"
+					filteredValue="#{usuarioBean.listaUsuariosFiltrados}" var="usuario"
+					paginator="true" id="dtusuario">
+					<f:facet name="header">
+						<h:commandLink>
+							<p:graphicImage name="pdf.jpg" width="24" library="images" />
+							<p:dataExporter type="pdf" target="dtusuario"
+								fileName="usuario" encoding="ISO-8859-1" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="excel.jpg" width="24" library="images" />
+							<p:dataExporter type="xls" target="dtusuario"
+								fileName="usuario" encoding="ISO-8859-1" />
+						</h:commandLink>
+
+					</f:facet>
+
+					<!-- filterBy="" filtrar  sortBy="" ordenar -->
+					<p:column headerText="CPF" filterBy="#{usuario.CPF}"
+						sortBy="#{usuario.CPF}">
+						<h:outputText value="#{usuario.CPF}"></h:outputText>
+					</p:column>
+					<p:column headerText="Nome" filterBy="#{usuario.nome}"
+						sortBy="#{usuario.nome}">
+						<h:outputText value="#{usuario.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="RG" filterBy="#{usuario.RG}"
+						sortBy="#{usuario.RG}">
+						<h:outputText value="#{usuario.RG}"></h:outputText>
+					</p:column>
+
+					<p:column headerText="Telefone" filterBy="#{usuario.telefone}"
+						sortBy="#{usuario.telefone}">
+						<h:outputText value="#{usuario.telefone}"></h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Status" filterBy="#{usuario.status}"
+						sortBy="#{usuario.status}">
+						<h:outputText value="#{usuario.status}"></h:outputText>
+					</p:column>
+
+					<p:column headerText="Idade" filterBy="#{usuario.idade}"
+						sortBy="#{usuario.idade}">
+						<h:outputText value="#{usuario.idade}"></h:outputText>
+					</p:column>
+
+					<p:column headerText="Sexo" filterBy="#{usuario.sexo}"
+						sortBy="#{usuario.sexo}">
+						<h:outputText value="#{usuario.sexo}"></h:outputText>
+					</p:column>
+
+				</p:dataTable>
+
+
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+</h:body>
+</html>

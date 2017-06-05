@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:insert name="metadata" />
+
+		<f:metadata>
+			<f:event listener="#{dispositivoBean.carregarPesquisa}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Secure Edges</title>
+</h:head>
+
+<h:body>
+	<p:growl id="msgGlobal" />
+	<p:layout fullPage="true">
+
+
+
+		<!--     <p:layoutUnit position="east" size="200" header="direita" resizable="false" closable="false" collapsible="false" effect="drop"> -->
+		<!--         <h:outputText value="Right unit content." /> -->
+		<!--     </p:layoutUnit> -->
+
+		<p:layoutUnit position="center" resizable="false" closable="false"
+			maxSize="3050" size="3050" collapsible="false">
+			<ui:insert name="conteudo"></ui:insert>
+			<h:form id="formdispositivo">
+				<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+				value="#{dispositivoBean.listaDispositivos}"
+				filteredValue="#{dispositivoBean.listaDispositivosFiltrados}"
+				var="dispositivo" paginator="true" id="dtdispositivo">
+				
+					<f:facet name="header">
+						<h:commandLink>
+							<p:graphicImage name="pdf.jpg" width="24" library="images" />
+							<p:dataExporter type="pdf" target="dtdispositivo"
+								fileName="dispositivo" encoding="ISO-8859-1" />
+						</h:commandLink>
+						
+												<h:commandLink>
+							<p:graphicImage name="excel.jpg" width="24" library="images" />
+							<p:dataExporter type="xls" target="dtdispositivo"
+								fileName="dispositivo" encoding="ISO-8859-1" />
+						</h:commandLink>
+
+					</f:facet>
+
+				<!-- filterBy="" filtrar  sortBy="" ordenar -->
+				<p:column headerText="Codigo">
+					<h:outputText value="#{dispositivo.codigo}"></h:outputText>
+				</p:column>
+				<p:column headerText="Descricao" filterBy="#{dispositivo.descricao}"
+					sortBy="#{dispositivo.descricao}">
+					<h:outputText value="#{dispositivo.descricao}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Status" filterBy="#{dispositivo.disp_status}"
+					sortBy="#{dispositivo.disp_status}">
+					<h:outputLabel value="Ativado"
+					rendered="#{dispositivo.disp_status == '1'}"></h:outputLabel>
+					<h:outputLabel value="Desativado"
+					rendered="#{dispositivo.disp_status == '0'}"></h:outputLabel>
+				</p:column>
+
+
+
+			</p:dataTable>
+
+
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+</h:body>
+</html>
