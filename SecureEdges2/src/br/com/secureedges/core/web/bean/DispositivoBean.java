@@ -334,10 +334,10 @@ public class DispositivoBean extends EntidadeDominio {
 					}
 				}
 			
-			for(long i =0; i < ids.size();i++){
-				if(dispositivoDAO.buscarPorCodigo(i).getCodigo() != 0){
+			for(int i =0; i < ids.size();i++){
+				
 				listaDispositivos
-				.add(dispositivoDAO.buscarPorCodigo(i));}
+				.add(dispositivoDAO.buscarPorCodigo(ids.get(i)));
 			}
 
 			

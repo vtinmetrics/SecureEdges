@@ -45,7 +45,7 @@ public class SolicitacaoDAO implements IDAO {
 			pstm.setLong(++i, solicitacao.getCodigo());
 			pstm.setString(++i, solicitacao.getStatus());
 			pstm.setLong(++i, solicitacao.getDispositivo().getCodigo());
-			pstm.setLong(++i, solicitacao.getComodo().getCodigo());
+			pstm.setLong(++i, solicitacao.getDispositivo().getComodo().getCodigo());
 			pstm.setString(++i, solicitacao.getDescricao());
 			pstm.setString(++i, vendaHorario);
 			pstm.setLong(++i, solicitacao.getUsuario().getCodigo());

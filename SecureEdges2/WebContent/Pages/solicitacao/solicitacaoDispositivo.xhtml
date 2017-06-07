@@ -29,7 +29,7 @@
 		<!-- para inserir toolbar deve se ter o facet -->
 		<p:toolbar>
 			<f:facet name="left">
-				<h:outputText value="Dispositivo Cadastro"></h:outputText>
+				<h:outputText value="Solicitação"></h:outputText>
 			</f:facet>
 		</p:toolbar>
 		<h:form>
@@ -55,7 +55,7 @@
 						<h:outputLabel value="Comodo"></h:outputLabel>
 						<p:selectOneMenu
 							value="#{solicitacaoBean.solicitacaoCadastro.comodo.codigo}"
-							disabled="#{dispositivoBean.acao== 'Excluir'}">
+							disabled="true">
 							<f:selectItems value="#{dispositivoBean.listaComodos}"
 								var="genero" itemLabel="#{genero.descricao}"
 								itemValue="#{solicitacaoBean.solicitacaoCadastro.dispositivo.comodo.codigo}" />
@@ -66,7 +66,7 @@
 						<h:outputLabel value="Tipo"></h:outputLabel>
 						<p:selectOneMenu
 							value="#{solicitacaoBean.solicitacaoCadastro.dispositivo.TP_Dispositivo.codigo}"
-							disabled="#{dispositivoBean.acao== 'Excluir'}">
+							disabled="true">
 							<f:selectItems value="#{dispositivoBean.listaTipo_Dispositivos}"
 								var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
 							<f:validateBean />
