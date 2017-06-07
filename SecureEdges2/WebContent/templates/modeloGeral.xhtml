@@ -71,6 +71,9 @@
 						<p:menuitem value="Meus Dispositivos"
 							outcome="/Pages/dispositivo/dispositivosAprovados.xhtml"
 							rendered="#{autenticacaoBean.usuarioLogado.status == 'admin' or autenticacaoBean.usuarioLogado.status == 'ativo' }" />
+						<p:menuitem value="Minhas Solicitaçoes"
+							outcome="/Pages/solicitacao/solicitacoesMinhas.xhtml"
+							rendered="#{autenticacaoBean.usuarioLogado.status == 'admin' or autenticacaoBean.usuarioLogado.status == 'ativo' }" />
 					</p:submenu>
 
 

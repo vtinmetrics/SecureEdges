@@ -31,9 +31,9 @@ import br.com.secureedges.util.FacesUtil;
 @ViewScoped
 public class SolicitacaoBean {
 	public String usuarioNome;
-	public List<EntidadeDominio> listaDispositivos;
+	public List<EntidadeDominio> listaDispositivos = new ArrayList<>();
 	List<Dispositivo> listaDispositivosFiltrados;
-	public List<EntidadeDominio> listasolicitacoes;
+	public List<EntidadeDominio> listasolicitacoes =  new ArrayList<>();
 	List<EntidadeDominio> listasolicitacoesFiltradas;
 	private List<Item> listaItens;
 	private Solicitacao solicitacaoCadastro;
@@ -49,9 +49,11 @@ public class SolicitacaoBean {
 	public String getUsuarioNome() {
 		return usuarioNome;
 	}
+
 	public void setUsuarioNome(String usuarioNome) {
 		this.usuarioNome = usuarioNome;
 	}
+
 	public List<EntidadeDominio> getListalistasolicitacoesFiltradas() {
 		if (listasolicitacoesFiltradas == null)
 			listasolicitacoesFiltradas = new ArrayList<>();
@@ -67,10 +69,11 @@ public class SolicitacaoBean {
 			listasolicitacoes = new ArrayList<>();
 		return listasolicitacoes;
 	}
-	
+
 	public void setListasolicitacoes(List<EntidadeDominio> listasolicitacoes) {
 		this.listasolicitacoes = listasolicitacoes;
 	}
+
 	public String getAcao() {
 		return acao;
 	}
@@ -242,25 +245,43 @@ public class SolicitacaoBean {
 
 		}
 	}
-	
-	
-	public void manipularSolicitacao(){
+
+	public void manipularSolicitacao() {
 		System.out.println("CHEGUEI AQUI");
-		try{
+		try {
 			String valor = FacesUtil.getParam("solSts");
 			Long cod = Long.parseLong(FacesUtil.getParam("solCod"));
 			SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
-			solicitacaoCadastro =  (Solicitacao) solicitacaoDAO.buscarPorCodigo(cod);
-			if(valor != null)
-			{
+			solicitacaoCadastro = (Solicitacao) solicitacaoDAO.buscarPorCodigo(cod);
+			if (valor != null) {
 				ICommand command = commands.get("Editar");
 				solicitacaoCadastro.setStatus(valor);
 				command.execute(solicitacaoCadastro);
 			}
-		
-		} catch(RuntimeException ex){
-			
+
+		} catch (RuntimeException ex) {
+
 		}
 	}
+	
+	
+	public void carregarPesquisaDetalhada() {
+		try {
+			List<EntidadeDominio> listarecebe = new ArrayList<>();
+			listarecebe = Fachada.listar(new Solicitacao());
+			for(EntidadeDominio solicitacao : listarecebe){
+				if(solicitacao instanceof Solicitacao){
+					if(((Solicitacao) solicitacao).getUsuario().getCodigo() == autenticacaoBean.getUsuarioLogado().getCodigo()){
+						listasolicitacoes.add(solicitacao);
+					}
+				}
+			}
+		} catch (RuntimeException ex) {
+
+			FacesUtil.adicionarMSGError("Erro ao tentar listar os  Usuarios:" + ex.getMessage());
+
+		}
+	}
+	
 
 }
