@@ -58,7 +58,7 @@ public class RelatorioDAO implements IDAO {
 			
 			while (rSet.next()) {
 
-				Mes mes = relatorio.getListMes().get(rSet.getInt("data"));
+				Mes mes = relatorio.getListMes().get(rSet.getInt("data")-1);
 				Solicitacao solic = new Solicitacao();
 				SolicitacaoDAO solicAux = new SolicitacaoDAO();
 				solic = (Solicitacao) solicAux.buscarPorCodigo(rSet.getLong("solicitacao"));

@@ -50,11 +50,13 @@
 			for (Mes mt : solicitacao.getListMes()) {
 				out.print("row.push('" + mt.getNome() + "');\n");
 				for (EntidadeDominio disp : dispositivos) {
+					System.out.println(mt.getNumero());
 					existe = false;
 					Dispositivo temp_disp = (Dispositivo) disp;
 					for (Solicitacao sol : mt.getListDispositivo()) {
 						if (temp_disp.getCodigo() == sol.getDispositivo().getCodigo()) {
 							out.print("row.push(" + sol.getQtde() + ");\n");
+							System.out.println(sol.getQtde());
 							existe = true;
 						}
 					}
