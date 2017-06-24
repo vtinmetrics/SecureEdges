@@ -32,12 +32,6 @@
 				value="#{solicitacaoBean.listasolicitacoes}"
 				filteredValue="#{solicitacaoBean.listasolicitacoes}"
 				var="solicitacao" paginator="true" id="dtsolicitacao">
-				<f:facet name="footer">
-					<p:button value="Relatorio"
-						outcome="/Pages/solicitacao/solicitacaoRelatorio.xhtml?faces-redirect=true"
-						id="btrelatorio">
-					</p:button>
-				</f:facet>
 
 				<!-- filterBy="" filtrar  sortBy="" ordenar -->
 				<p:column headerText="Codigo">

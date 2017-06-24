@@ -149,7 +149,10 @@ public class RelatorioDAO implements IDAO {
 	
 	
 	
-	
+	public List<EntidadeDominio> retornaLog(EntidadeDominio dispositivo){
+		return null;
+		
+	}
 	
 	
 	

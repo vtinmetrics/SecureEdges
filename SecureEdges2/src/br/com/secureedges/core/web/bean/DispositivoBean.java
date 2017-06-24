@@ -1,6 +1,7 @@
 package br.com.secureedges.core.web.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import br.com.secureedges.core.web.impl.AlterarCommand;
 import br.com.secureedges.core.web.impl.ExcluirCommand;
 import br.com.secureedges.core.web.impl.SalvarCommand;
 import br.com.secureedges.domain.EntidadeDominio;
+import br.com.secureedges.domain.Log;
 import br.com.secureedges.domain.Solicitacao;
 import br.com.secureedges.domain.Comodo;
 import br.com.secureedges.domain.Tipo_Dispositivo;
@@ -201,10 +203,13 @@ public class DispositivoBean extends EntidadeDominio {
 
 	public void manipular() {
 		String statusPro;
+		Log log = new Log();
 		if (DispositivoCadastro.getStatus().equals("Ativo")) {
 			statusPro = "Desativado";
+			
 		} else {
 			statusPro = "Ativo";
+			log.setStatus("Aativado");
 		}
 		try {
 			DispositivoCadastro.setStatus(statusPro);
@@ -216,6 +221,8 @@ public class DispositivoBean extends EntidadeDominio {
 			 * pode conter mensagens derro ou entidades de retorno
 			 */
 			command.execute(DispositivoCadastro);
+			
+			
 			DispositivoCadastro = new Dispositivo();
 
 		} catch (RuntimeException ex) {
@@ -274,16 +281,17 @@ public class DispositivoBean extends EntidadeDominio {
 
 	public boolean manipular(Dispositivo dispositivo) {
 
-		System.out.println("status de entrada:" + dispositivo.getDisp_status());
+		Log log = new Log();
 		ClasseListener objArduino = new ClasseListener();
-		System.out.println("o status atual é:" + dispositivo.getDisp_status());
 		try {
 			int power = 0;
 			if (dispositivo.getDisp_status() == 0) {
 				power = 1;
+				log.setStatus("Ativado");
 				dispositivo.setDisp_status(1);
 			} else if (dispositivo.getDisp_status() == 1) {
 				power = 0;
+				log.setStatus("Desativado");
 				dispositivo.setDisp_status(0);
 			}
 
@@ -305,7 +313,11 @@ public class DispositivoBean extends EntidadeDominio {
 			 * pode conter mensagens derro ou entidades de retorno
 			 */
 			command.execute(dispositivo);
-			System.out.println("status de saida:" + dispositivo.getDisp_status());
+			log.setDispositivo(dispositivo);
+			log.setData(new Date());
+			log.setUsuario(autenticacaoBean.getUsuarioLogado());
+			command = commands.get("Salvar");
+			command.execute(log);
 			return true;
 
 		} catch (Exception e) {

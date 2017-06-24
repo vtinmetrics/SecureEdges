@@ -21,6 +21,7 @@ import br.com.secureedges.domain.Comodo;
 import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.domain.Item;
+import br.com.secureedges.domain.Log;
 import br.com.secureedges.domain.Resultado;
 import br.com.secureedges.domain.Solicitacao;
 import br.com.secureedges.domain.Tipo_Dispositivo;

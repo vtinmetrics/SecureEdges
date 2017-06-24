@@ -38,7 +38,7 @@ public class SolicitacaoDAO implements IDAO {
 				Statement.RETURN_GENERATED_KEYS);
 
 		try {
-			SimpleDateFormat stf = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+HH:mm");
 			String vendaHorario = stf.format(solicitacao.getData());
 			System.out.println(solicitacao.getData());
 			int i = 0;
