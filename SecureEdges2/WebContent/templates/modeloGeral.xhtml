@@ -7,6 +7,9 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:insert name="metadata" />
 
+		<f:metadata>
+		</f:metadata>
+
 
 
 <h:head>
@@ -29,8 +32,8 @@
 					</p:menuitem>
 
 					<p:menuitem value="Graficos"
-					outcome="/Pages/relatorio/relatorio.xhtml?faces-redirect=true"
-					rendered="#{autenticacaoBean.usuarioLogado.status == 'admin'}">
+						outcome="/Pages/relatorio/relatorio.xhtml?faces-redirect=true"
+						rendered="#{autenticacaoBean.usuarioLogado.status == 'admin'}">
 					</p:menuitem>
 					<p:menuitem value="Autenticar"
 						action="/Pages/usuario/autenticacao.xhtml?faces-redirect=true"
@@ -78,6 +81,11 @@
 
 
 				</p:panelMenu>
+				<h:outputLabel value="Umidade: "></h:outputLabel>
+				<h:outputLabel value="#{temperaturaBean.test.umidade}"></h:outputLabel>
+				<br></br>
+				<h:outputLabel value="Temperatura: "></h:outputLabel>
+				<h:outputLabel value="#{temperaturaBean.test.temperatura}"></h:outputLabel>
 			</h:form>
 		</p:layoutUnit>
 
@@ -85,8 +93,8 @@
 		<!--         <h:outputText value="Right unit content." /> -->
 		<!--     </p:layoutUnit> -->
 
-		<p:layoutUnit position="center" resizable="false" closable="false" maxSize="3050" size="3050"
-			collapsible="false">
+		<p:layoutUnit position="center" resizable="false" closable="false"
+			maxSize="3050" size="3050" collapsible="false">
 			<ui:insert name="conteudo"></ui:insert>
 
 		</p:layoutUnit>

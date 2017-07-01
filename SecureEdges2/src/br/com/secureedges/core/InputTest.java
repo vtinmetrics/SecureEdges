@@ -32,51 +32,47 @@ import org.zu.ardulink.event.DisconnectionEvent;
 import org.zu.ardulink.protocol.IProtocol;
 
 public class InputTest implements ServletContextListener {
+	public String umidade;
+	public String temperatura;
 
+	public String getTemperatura() {
+		return temperatura;
+	}
+
+	public String getUmidade() {
+		return umidade;
+	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-	Link link = Link.getDefaultInstance();
-		
-		link.addConnectionListener(new ConnectionListener() {
-			
-			@Override
-			public void disconnected(DisconnectionEvent e) {
-				System.out.println("Board disconnected");
-			}
-			
-			@Override
-			public void connected(ConnectionEvent e) {
-				System.out.println("Board connected");
-			}
-		});
-		
-		link.connect("COM3");
-		try {
-			System.out.println("wait for a while");
-			Thread.sleep(2000);
-			System.out.println("proceed");
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-		
-		System.out.println("start Listening");
+	}
+	
+	public InputTest() {
+		teste();
+	}
+	
+
+	
+	public void teste() {
+		ClasseListener listener = new ClasseListener();
+		Link link = listener.getLink();
+
 		link.addAnalogReadChangeListener(new AnalogReadChangeListener() {
-			
-			
-			
+
 			@Override
 			public void stateChanged(AnalogReadChangeEvent e) {
-				System.out.println("PIN: " + e.getPin() + " STATE: " + e.getValue());
-				System.out.println(e.getIncomingMessage());
+				//System.out.println("PIN: " + e.getPin() + " STATE: " + e.getValue());
+				Integer aa = e.getValue();
+				String aux = aa.toString();
+				umidade = aux.substring(0, 2);
+				temperatura = aux.substring(2, 4);
+		//		System.out.println("Essa e a temperatura " + temperatura);
+		//		System.out.println("Essa e a umidade " + umidade);
+		//		System.out.println(e.getIncomingMessage());
 			}
-			
+
 			@Override
 			public int getPinListening() {
 				return 1;
@@ -84,18 +80,11 @@ public class InputTest implements ServletContextListener {
 
 		});
 
-		while(true) {
-			
-		}
-		
-/*		try {
-			System.out.println("wait for a while");
-			Thread.sleep(2000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}*/
-		//link.disconnect();
+	}
 
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }
