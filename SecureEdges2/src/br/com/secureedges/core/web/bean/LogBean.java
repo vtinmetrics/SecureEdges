@@ -30,12 +30,12 @@ import br.com.secureedges.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
-public class SolicitacaoBean {
+public class LogBean {
 	public String usuarioNome;
 	public List<EntidadeDominio> listaDispositivos = new ArrayList<>();
 	List<Dispositivo> listaDispositivosFiltrados;
-	public List<EntidadeDominio> listalog =  new ArrayList<>();
-	List<EntidadeDominio> listalogFiltradas;
+	public List<EntidadeDominio> listalogs =  new ArrayList<>();
+	List<EntidadeDominio> listasolicitacoesFiltradas;
 	private List<Item> listaItens;
 	private Solicitacao solicitacaoCadastro;
 	private static Map<String, ICommand> commands;
@@ -55,24 +55,24 @@ public class SolicitacaoBean {
 		this.usuarioNome = usuarioNome;
 	}
 
-	public List<EntidadeDominio> getListalistalogFiltradas() {
-		if (listalogFiltradas == null)
-			listalogFiltradas = new ArrayList<>();
-		return listalogFiltradas;
+	public List<EntidadeDominio> getListalistasolicitacoesFiltradas() {
+		if (listasolicitacoesFiltradas == null)
+			listasolicitacoesFiltradas = new ArrayList<>();
+		return listasolicitacoesFiltradas;
 	}
 
-	public void setListalistalogFiltradas(List<EntidadeDominio> listalogFiltradas) {
-		this.listalogFiltradas = listalogFiltradas;
+	public void setListalistasolicitacoesFiltradas(List<EntidadeDominio> listasolicitacoesFiltradas) {
+		this.listasolicitacoesFiltradas = listasolicitacoesFiltradas;
 	}
 
-	public List<EntidadeDominio> getListasolicitacoes() {
-		if (listalog == null)
-			listalog = new ArrayList<>();
-		return listalog;
+	public List<EntidadeDominio> getlistalogs() {
+		if (listalogs == null)
+			listalogs = new ArrayList<>();
+		return listalogs;
 	}
 
-	public void setListasolicitacoes(List<EntidadeDominio> listalog) {
-		this.listalog = listalog;
+	public void setlistalogs(List<EntidadeDominio> listasolicitacoes) {
+		this.listalogs = listasolicitacoes;
 	}
 
 	public String getAcao() {
@@ -110,7 +110,7 @@ public class SolicitacaoBean {
 		this.listaDispositivos = listaDispositivos;
 	}
 
-	public SolicitacaoBean() {
+	public LogBean() {
 		/*
 		 * Utilizando o command para chamar a fachada e indexando cada command
 		 * pela operação garantimos que esta servelt atenderá qualquer operação
@@ -239,7 +239,7 @@ public class SolicitacaoBean {
 
 	public void carregarPesquisa() {
 		try {
-			listalog = Fachada.listar(new Log());
+			listalogs = Fachada.listar(new Log());
 		} catch (RuntimeException ex) {
 
 			FacesUtil.adicionarMSGError("Erro ao tentar listar os  Usuarios:" + ex.getMessage());
@@ -248,6 +248,7 @@ public class SolicitacaoBean {
 	}
 
 	public void manipularSolicitacao() {
+		System.out.println("CHEGUEI AQUI");
 		try {
 			String valor = FacesUtil.getParam("solSts");
 			Long cod = Long.parseLong(FacesUtil.getParam("solCod"));
@@ -272,7 +273,7 @@ public class SolicitacaoBean {
 			for(EntidadeDominio solicitacao : listarecebe){
 				if(solicitacao instanceof Solicitacao){
 					if(((Solicitacao) solicitacao).getUsuario().getCodigo() == autenticacaoBean.getUsuarioLogado().getCodigo()){
-						listalog.add(solicitacao);
+						listalogs.add(solicitacao);
 					}
 				}
 			}

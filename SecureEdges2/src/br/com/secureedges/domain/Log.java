@@ -4,39 +4,36 @@ import java.util.Date;
 
 public class Log extends EntidadeDominio{
 	
- Usuario usuario ;
- Dispositivo dispositivo;
+ Long usuario ;
+ Long dispositivo;
  String status;
  Date data;
- 
-public Usuario getUsuario() {
-	if (usuario == null)
-		usuario =  new Usuario();
+public Long getUsuario() {
 	return usuario;
 }
-public void setUsuario(Usuario usuario) {
-	this.usuario = usuario;
-}
-public Dispositivo getDispositivo() {
-	if (dispositivo == null)
-		dispositivo =  new Dispositivo();
+public Long getDispositivo() {
 	return dispositivo;
-}
-public void setDispositivo(Dispositivo dispositivo) {
-	this.dispositivo = dispositivo;
 }
 public String getStatus() {
 	return status;
 }
-public void setStatus(String status) {
-	this.status = status;
-}
 public Date getData() {
 	return data;
+}
+public void setUsuario(Long usuario) {
+	this.usuario = usuario;
+}
+public void setDispositivo(Long dispositivo) {
+	this.dispositivo = dispositivo;
+}
+public void setStatus(String status) {
+	this.status = status;
 }
 public void setData(Date data) {
 	this.data = data;
 }
  
+
+
  
 }

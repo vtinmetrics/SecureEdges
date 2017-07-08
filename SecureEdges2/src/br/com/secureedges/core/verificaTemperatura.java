@@ -13,23 +13,11 @@ public class verificaTemperatura {
 	public void run() {
 		ClasseListener classeListener =  new ClasseListener();
 		Link link = classeListener.getLink().getDefaultInstance();
-		List<String> portList = link.getPortList(); // 2
-		if (portList != null && portList.size() > 0) {
-			String port = portList.get(0);
-			System.out.println("Connecting on port: " + port);
 
-			boolean connected = link.connect(port); // 3
-			System.out.println("Connected:" + connected);
-		} else
-
-		{
-			System.out.println("No port found!");
-		}
-		
 		
 		try {
 			System.out.println("wait for a while");
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			System.out.println("proceed");
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
@@ -65,7 +53,6 @@ public class verificaTemperatura {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		link.disconnect();
 	}
 
 }

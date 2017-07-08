@@ -7,6 +7,10 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:insert name="metadata" />
 
+<f:metadata>
+	<f:event listener="#{temperaturaBean.pegarvalor}"
+		type="preRenderView" />
+</f:metadata>
 
 
 
@@ -79,6 +83,11 @@
 
 
 				</p:panelMenu>
+				<h:outputLabel value="Umidade: "></h:outputLabel>
+				<h:outputLabel value="#{temperaturaBean.umidade}"></h:outputLabel>
+				<br></br>
+				<h:outputLabel value="Temperatura: "></h:outputLabel>
+				<h:outputLabel value="#{temperaturaBean.temperatura}"></h:outputLabel>
 			</h:form>
 		</p:layoutUnit>
 

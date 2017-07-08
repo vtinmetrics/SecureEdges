@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Test;
+
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import br.com.secureedges.core.IDAO;
 import br.com.secureedges.core.util.factory.Conexao;
 import br.com.secureedges.domain.Log;
+import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.util.FacesUtil;
 
@@ -38,8 +41,8 @@ public class LogDAO implements IDAO{
 			String vendaHorario = stf.format(log.getData());
 			int i=0;
 			pstm.setLong(++i, log.getCodigo());
-			pstm.setLong(++i,log.getUsuario().getCodigo());
-			pstm.setLong(++i,log.getDispositivo().getCodigo());
+			pstm.setLong(++i,log.getUsuario());
+			pstm.setLong(++i,log.getDispositivo());
 			pstm.setString(++i,vendaHorario);
 			pstm.setString(++i,log.getStatus());
 			
@@ -74,8 +77,35 @@ public class LogDAO implements IDAO{
 
 	@Override
 	public List<EntidadeDominio> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer sql = new StringBuffer(); 
+		sql.append("SELECT * FROM db_secureedges.tb_log;");			
+		List<EntidadeDominio> lista = new ArrayList<EntidadeDominio>();
+		
+		Connection con = Conexao.getConnection();
+		
+		try {
+			PreparedStatement pstm = (PreparedStatement) con.prepareStatement(sql.toString());
+			ResultSet rSet = pstm.executeQuery();
+			
+			while(rSet.next()) {
+				
+				Log log = new Log();
+				log.setCodigo(rSet.getLong("id_log"));
+				log.setUsuario(rSet.getLong("id_usuario"));
+				log.setDispositivo(rSet.getLong("id_dispositivo"));
+				log.setData(rSet.getDate("data_operacao"));
+				log.setStatus(rSet.getString("log_status"));
+				
+				lista.add(log);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			FacesUtil.adicionarMSGError(e.getMessage());
+		}
+		
+		return lista;
 	}
 
 	@Override
@@ -90,6 +120,9 @@ public class LogDAO implements IDAO{
 		return null;
 	}
 
-	
+	@Test
+	public void testar() {
+		listar();
+	}
 	
 }

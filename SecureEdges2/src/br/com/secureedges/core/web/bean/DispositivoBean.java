@@ -1,6 +1,8 @@
 package br.com.secureedges.core.web.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,25 +12,21 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.zu.ardulink.Link;
-import org.zu.ardulink.gui.DigitalPinStatus;
-import org.zu.ardulink.protocol.IProtocol;
-
 import br.com.secureedges.core.ClasseListener;
 import br.com.secureedges.core.dao.DispositivoDAO;
 import br.com.secureedges.core.dao.SolicitacaoDAO;
 import br.com.secureedges.core.impl.controle.Fachada;
-import br.com.secureedges.util.FacesUtil;
 import br.com.secureedges.core.web.command.ICommand;
 import br.com.secureedges.core.web.impl.AlterarCommand;
 import br.com.secureedges.core.web.impl.ExcluirCommand;
 import br.com.secureedges.core.web.impl.SalvarCommand;
+import br.com.secureedges.domain.Comodo;
+import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.domain.Log;
 import br.com.secureedges.domain.Solicitacao;
-import br.com.secureedges.domain.Comodo;
 import br.com.secureedges.domain.Tipo_Dispositivo;
-import br.com.secureedges.domain.Dispositivo;
+import br.com.secureedges.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
@@ -47,8 +45,8 @@ public class DispositivoBean extends EntidadeDominio {
 
 	public DispositivoBean() {
 		/*
-		 * Utilizando o command para chamar a fachada e indexando cada command
-		 * pela operação garantimos que esta servelt atenderá qualquer operação
+		 * Utilizando o command para chamar a fachada e indexando cada command pela
+		 * operação garantimos que esta servelt atenderá qualquer operação
 		 */
 		commands = new HashMap<String, ICommand>();
 		commands.put("Salvar", new SalvarCommand());
@@ -144,9 +142,9 @@ public class DispositivoBean extends EntidadeDominio {
 			// Obtêm o command para executar a respectiva operação
 			ICommand command = commands.get(acao);
 			/*
-			 * Executa o command que chamará a fachada para executar a operação
-			 * requisitada o retorno é uma instância da classe resultado que
-			 * pode conter mensagens derro ou entidades de retorno
+			 * Executa o command que chamará a fachada para executar a operação requisitada
+			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+			 * ou entidades de retorno
 			 */
 			command.execute(DispositivoCadastro);
 			DispositivoCadastro = new Dispositivo();
@@ -165,9 +163,9 @@ public class DispositivoBean extends EntidadeDominio {
 			// Obtêm o command para executar a respectiva operação
 			ICommand command = commands.get(acao);
 			/*
-			 * Executa o command que chamará a fachada para executar a operação
-			 * requisitada o retorno é uma instância da classe resultado que
-			 * pode conter mensagens derro ou entidades de retorno
+			 * Executa o command que chamará a fachada para executar a operação requisitada
+			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+			 * ou entidades de retorno
 			 */
 			command.execute(DispositivoCadastro);
 
@@ -186,9 +184,9 @@ public class DispositivoBean extends EntidadeDominio {
 			// Obtêm o command para executar a respectiva operação
 			ICommand command = commands.get(acao);
 			/*
-			 * Executa o command que chamará a fachada para executar a operação
-			 * requisitada o retorno é uma instância da classe resultado que
-			 * pode conter mensagens derro ou entidades de retorno
+			 * Executa o command que chamará a fachada para executar a operação requisitada
+			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+			 * ou entidades de retorno
 			 */
 			command.execute(DispositivoCadastro);
 			DispositivoCadastro = new Dispositivo();
@@ -206,7 +204,7 @@ public class DispositivoBean extends EntidadeDominio {
 		Log log = new Log();
 		if (DispositivoCadastro.getStatus().equals("Ativo")) {
 			statusPro = "Desativado";
-			
+
 		} else {
 			statusPro = "Ativo";
 			log.setStatus("Aativado");
@@ -216,13 +214,12 @@ public class DispositivoBean extends EntidadeDominio {
 			// Obtêm o command para executar a respectiva operação
 			ICommand command = commands.get("Editar");
 			/*
-			 * Executa o command que chamará a fachada para executar a operação
-			 * requisitada o retorno é uma instância da classe resultado que
-			 * pode conter mensagens derro ou entidades de retorno
+			 * Executa o command que chamará a fachada para executar a operação requisitada
+			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+			 * ou entidades de retorno
 			 */
 			command.execute(DispositivoCadastro);
-			
-			
+
 			DispositivoCadastro = new Dispositivo();
 
 		} catch (RuntimeException ex) {
@@ -293,6 +290,7 @@ public class DispositivoBean extends EntidadeDominio {
 				power = 0;
 				log.setStatus("Desativado");
 				dispositivo.setDisp_status(0);
+
 			}
 
 			System.out.println("o status agora é:" + dispositivo.getDisp_status());
@@ -308,14 +306,14 @@ public class DispositivoBean extends EntidadeDominio {
 			// sensor
 			ICommand command = commands.get("Editar");
 			/*
-			 * Executa o command que chamará a fachada para executar a operação
-			 * requisitada o retorno é uma instância da classe resultado que
-			 * pode conter mensagens derro ou entidades de retorno
+			 * Executa o command que chamará a fachada para executar a operação requisitada
+			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+			 * ou entidades de retorno
 			 */
 			command.execute(dispositivo);
-			log.setDispositivo(dispositivo);
+			log.setDispositivo(dispositivo.getCodigo());
 			log.setData(new Date());
-			log.setUsuario(autenticacaoBean.getUsuarioLogado());
+			log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
 			command = commands.get("Salvar");
 			command.execute(log);
 			return true;
@@ -331,39 +329,77 @@ public class DispositivoBean extends EntidadeDominio {
 		try {
 			SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
 			List<EntidadeDominio> solicitacoes = solicitacaoDAO.listar();
-			DispositivoDAO dispositivoDAO =  new DispositivoDAO();
+			DispositivoDAO dispositivoDAO = new DispositivoDAO();
 			List<Long> ids = new ArrayList<>();
 			for (EntidadeDominio solicitacao : solicitacoes) {
 				if (((Solicitacao) solicitacao).getStatus().equals("aprovada")) {
 					if (solicitacao instanceof Solicitacao) {
 						if (((Solicitacao) solicitacao).getUsuario().getCodigo() == autenticacaoBean.getUsuarioLogado()
 								.getCodigo()) {
-						  ids.add(((Solicitacao) solicitacao).getDispositivo().getCodigo());
-							
-							}
-							
+							ids.add(((Solicitacao) solicitacao).getDispositivo().getCodigo());
+
 						}
+
 					}
 				}
-			
-			for(int i =0; i < ids.size();i++){
-				
-				listaDispositivos
-				.add(dispositivoDAO.buscarPorCodigo(ids.get(i)));
 			}
 
-			
-			
-		
-			
-		}catch(
+			for (int i = 0; i < ids.size(); i++) {
 
-	RuntimeException ex)
-	{
+				listaDispositivos.add(dispositivoDAO.buscarPorCodigo(ids.get(i)));
+			}
 
-		FacesUtil.adicionarMSGError("Erro ao tentar listar os  Dispositivoes:" + ex.getMessage());
+		} catch (
+
+		RuntimeException ex) {
+
+			FacesUtil.adicionarMSGError("Erro ao tentar listar os  Dispositivoes:" + ex.getMessage());
+
+		}
+	}
+
+	public boolean manipular2(Dispositivo dispositivo) {
+
+		Log log = new Log();
+		ClasseListener objArduino = new ClasseListener();
+		try {
+			int power = 0;
+			if (dispositivo.getDisp_status() == 0) {
+				power = 1;
+				log.setStatus("Ativado");
+				dispositivo.setDisp_status(1);
+				String aux = dispositivo.getInterface_Arduino().toString();
+				int teste = Integer.parseInt(aux);
+
+				System.out.println("Send power:" + power + "\n Interface: " + teste);
+				objArduino.getLink().sendPowerPinSwitch(teste, power); // Send
+
+				System.out.println("o status agora é:" + dispositivo.getDisp_status());
+
+				// energy to
+				// the right pin
+				// of your
+				// sensor
+				ICommand command = commands.get("Editar");
+				/*
+				 * Executa o command que chamará a fachada para executar a operação requisitada
+				 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+				 * ou entidades de retorno
+				 */
+				command.execute(dispositivo);
+				log.setDispositivo(dispositivo.getCodigo());
+				log.setData(new Date());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				command = commands.get("Salvar");
+				command.execute(log);
+			}
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 
 	}
-}
 
 }
