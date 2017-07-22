@@ -113,14 +113,12 @@
 					disabled="#{usuarioBean.acao == 'Excluir'}" />
 
 				<h:outputLabel value="CEP"></h:outputLabel>
-				<p:inputMask maxlength="8" size="8"
-					mask="99999-999"
+				<p:inputMask maxlength="8" size="8" mask="99999-999"
 					value="#{usuarioBean.usuarioCadastro.endereco.CEP}"
 					disabled="#{usuarioBean.acao == 'Excluir'}" />
 
 				<h:outputLabel value="Telefone"></h:outputLabel>
-				<p:inputMask maxlength="50" size="30"
-					mask="(99) 99999-9999"
+				<p:inputMask maxlength="50" size="30" mask="(99) 99999-9999"
 					value="#{usuarioBean.usuarioCadastro.telefone}"
 					disabled="#{usuarioBean.acao == 'Excluir'}" />
 
@@ -144,14 +142,25 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="3"
-			rendered="#{autenticacaoBean.usuarioLogado.status == 'admin'}">
+				rendered="#{autenticacaoBean.usuarioLogado.status == 'admin'}">
 				<h:outputLabel value="Selecione o status" />
-				<h:selectOneMenu value="#{usuarioBean.usuarioCadastro.status}"
-					>
+				<h:selectOneMenu value="#{usuarioBean.usuarioCadastro.status}">
 					<f:selectItem itemValue="ativo" itemLabel="ativo"></f:selectItem>
 					<f:selectItem itemValue="desativado" itemLabel="desativado"></f:selectItem>
 				</h:selectOneMenu>
 			</h:panelGrid>
+
+
+			<h:outputLabel value="Temperatura Maxima"></h:outputLabel>
+			<h:inputText maxlength="50" size="30"
+				value="#{usuarioBean.usuarioCadastro.temperaturamax}"
+				disabled="#{usuarioBean.acao == 'Excluir'}" />
+
+			<h:outputLabel value="Temperatura Minima"></h:outputLabel>
+			<h:inputText maxlength="50" size="30"
+				value="#{usuarioBean.usuarioCadastro.temperaturamin}"
+				disabled="#{usuarioBean.acao == 'Excluir'}" />
+
 
 			<h:panelGrid columns="6">
 				<!-- propriedade update serve para informar quem será atualizadovia ajax (id  do growl :msgglobal em template-->

@@ -11,6 +11,7 @@ import br.com.secureedges.core.IFachada;
 import br.com.secureedges.core.dao.ComodoDAO;
 import br.com.secureedges.core.dao.DispositivoDAO;
 import br.com.secureedges.core.dao.LogDAO;
+import br.com.secureedges.core.dao.ReportLogDAO;
 import br.com.secureedges.core.dao.SolicitacaoDAO;
 import br.com.secureedges.core.dao.Tipo_DispositivoDAO;
 import br.com.secureedges.core.dao.UsuarioDAO;
@@ -24,6 +25,7 @@ import br.com.secureedges.domain.Comodo;
 import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.domain.Log;
+import br.com.secureedges.domain.ReportLog;
 import br.com.secureedges.domain.Resultado;
 import br.com.secureedges.domain.Solicitacao;
 import br.com.secureedges.domain.Tipo_Dispositivo;
@@ -60,6 +62,7 @@ public class Fachada implements IFachada {
 		Tipo_DispositivoDAO tipo_DispositivoDAO = new Tipo_DispositivoDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		LogDAO logDAO =  new LogDAO();
+		ReportLogDAO reportLogDAO = new ReportLogDAO();
 
 		/* Adicionando cada dao no MAP indexando pelo nome da classe */
 		daos.put(Comodo.class.getName(), (IDAO) comodoDAO);
@@ -68,6 +71,7 @@ public class Fachada implements IFachada {
 		daos.put(Tipo_Dispositivo.class.getName(), (IDAO) tipo_DispositivoDAO);
 		daos.put(Usuario.class.getName(), (IDAO) usuarioDAO);
 		daos.put(Log.class.getName(), (IDAO) logDAO);
+		daos.put(ReportLog.class.getName(), (IDAO) reportLogDAO);
 
 		/* Criando instâncias de regras de negócio a serem utilizados */
 		ValidaDadosObrigatoriosComodo dadosObrigatoriosComodo = new ValidaDadosObrigatoriosComodo();

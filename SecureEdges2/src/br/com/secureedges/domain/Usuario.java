@@ -121,8 +121,26 @@ public class Usuario  extends EntidadeDominio{
 	
 	private String Sexo;
 	
-
+	private int temperaturamin , temperaturamax;
 	
+	
+	public int getTemperaturamin() {
+		return temperaturamin;
+	}
+
+	public int getTemperaturamax() {
+		return temperaturamax;
+	}
+
+	public void setTemperaturamin(int temperaturamin) {
+		this.temperaturamin = temperaturamin;
+	}
+
+	public void setTemperaturamax(int temperaturamax) {
+		this.temperaturamax = temperaturamax;
+	}
+
+
 	private String Status =null;  // 1 ativo 0 desativado
 		
 

@@ -38,7 +38,7 @@ public class AutenticacaoBean {
 			}
 			else{
 					FacesUtil.adicionarMSGInfo("Usuario autenticado com sucesso");
-					return "/templates/modeloGeral.xhtml?faces-redirect=true";
+					return "/templates/modeloGeral2.xhtml?faces-redirect=true";
 				}
 				
 			

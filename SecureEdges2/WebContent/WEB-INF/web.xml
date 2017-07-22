@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>Secure Edges</display-name>
 	<welcome-file-list>
-		<welcome-file>Pages/Principal.xhtml</welcome-file>
+		<welcome-file>Pages/usuario/autenticacao.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<servlet>

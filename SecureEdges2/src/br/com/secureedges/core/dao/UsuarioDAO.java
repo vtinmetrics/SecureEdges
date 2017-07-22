@@ -36,8 +36,8 @@ public class UsuarioDAO implements IDAO {
 		sql.append("INSERT INTO db_secureedges.tb_usuario(usr_Codigo,usr_CPF,usr_Email,");
 		sql.append("end_Bairro,end_CEP,");
 		sql.append("end_Cidade,end_Estado,end_Numero,end_Rua,");
-		sql.append("usr_Idade,usr_Nome,usr_RG,usr_Senha,usr_Sexo,usr_Sobrenome,usr_Status,usr_Telefone,dtCadastro)");
-		sql.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		sql.append("usr_Idade,usr_Nome,usr_RG,usr_Senha,usr_Sexo,usr_Sobrenome,usr_Status,usr_Telefone,dtCadastro,temperaturamin,temperaturamax)");
+		sql.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		Connection con = Conexao.getConnection();
 		PreparedStatement pstm = (PreparedStatement) con.prepareStatement(sql.toString(),
@@ -66,6 +66,8 @@ public class UsuarioDAO implements IDAO {
 			SimpleDateFormat stf = new SimpleDateFormat("yyyy/MM/dd");
 			String cadastro = stf.format(new Date());
 			pstm.setString(++i, cadastro);
+			pstm.setInt(++i, usuario.getTemperaturamin());
+			pstm.setInt(++i, usuario.getTemperaturamax());
 
 			pstm.executeUpdate();
 			ResultSet rset = pstm.getGeneratedKeys();
@@ -118,6 +120,8 @@ public class UsuarioDAO implements IDAO {
 				usuario.setStatus(rSet.getString("usr_Status"));
 				usuario.setTelefone(rSet.getString("usr_Telefone"));
 				usuario.setDtCadastro(rSet.getDate("dtCadastro"));
+				usuario.setTemperaturamax(rSet.getInt("temperaturamin"));
+				usuario.setTemperaturamin(rSet.getInt("temperaturamax"));
 
 				lista.add(usuario);
 			}
@@ -166,6 +170,8 @@ public class UsuarioDAO implements IDAO {
 				usuario.setStatus(rSet.getString("usr_Status"));
 				usuario.setTelefone(rSet.getString("usr_Telefone"));
 				usuario.setDtCadastro(rSet.getDate("dtCadastro"));
+				usuario.setTemperaturamax(rSet.getInt("temperaturamin"));
+				usuario.setTemperaturamin(rSet.getInt("temperaturamax"));
 
 			}
 
@@ -219,7 +225,7 @@ public class UsuarioDAO implements IDAO {
 		sql.append("end_Bairro = ? ,end_CEP = ?, ");
 		sql.append("end_Cidade = ?, end_Estado = ? , end_Numero = ? , end_Rua = ? , ");
 		sql.append(
-				"usr_Idade = ?, usr_Nome = ? ,usr_RG = ? ,usr_Senha= ? , usr_Sexo= ? , usr_Sobrenome = ? , usr_Status = ? , usr_Telefone = ?, dtCadastro = ? Where usr_Codigo=  ?");
+				"usr_Idade = ?, usr_Nome = ? ,usr_RG = ? ,usr_Senha= ? , usr_Sexo= ? , usr_Sobrenome = ? , usr_Status = ? , usr_Telefone = ?, dtCadastro = ?, temperaturamin = ? ,temperaturamax = ? Where usr_Codigo=  ?");
 
 		Connection con = Conexao.getConnection();
 		PreparedStatement pstm = (PreparedStatement) con.prepareStatement(sql.toString(),
@@ -246,6 +252,8 @@ public class UsuarioDAO implements IDAO {
 			SimpleDateFormat stf = new SimpleDateFormat("yyyy/MM/dd");
 			String cadastro = stf.format(new Date());
 			pstm.setString(++i, cadastro);
+			pstm.setInt(++i, usuario.getTemperaturamin());
+			pstm.setInt(++i, usuario.getTemperaturamax());
 			pstm.setLong(++i, usuario.getCodigo());
 
 			System.out.println(pstm.executeUpdate());
@@ -296,6 +304,8 @@ public class UsuarioDAO implements IDAO {
 				usuario.setStatus(rSet.getString("usr_Status"));
 				usuario.setTelefone(rSet.getString("usr_Telefone"));
 				usuario.setDtCadastro(rSet.getDate("dtCadastro"));
+				usuario.setTemperaturamax(rSet.getInt("temperaturamin"));
+				usuario.setTemperaturamin(rSet.getInt("temperaturamax"));
 
 			}
 			
@@ -351,6 +361,8 @@ public class UsuarioDAO implements IDAO {
 				usuario.setStatus(rSet.getString("usr_Status"));
 				usuario.setTelefone(rSet.getString("usr_Telefone"));
 				usuario.setDtCadastro(rSet.getDate("dtCadastro"));
+				usuario.setTemperaturamax(rSet.getInt("temperaturamin"));
+				usuario.setTemperaturamin(rSet.getInt("temperaturamax"));
 
 				System.out.println(pstm);
 			}

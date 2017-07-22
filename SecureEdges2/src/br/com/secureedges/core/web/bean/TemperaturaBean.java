@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.zu.ardulink.Link;
@@ -30,11 +31,13 @@ public class TemperaturaBean{
 	public String temperatura;
 	InputTest orquestrador =  new InputTest();
 	
+	
 
 	DispositivoBean dispositivoBean = new DispositivoBean();
 	DispositivoDAO dao = new DispositivoDAO();
 	Dispositivo dispositivo =  (Dispositivo) dao.buscarPorCodigo(2L);
 	private static Map<String, ICommand> commands;
+	@ManagedProperty(value = "#{autenticacaoBean}")
 	private AutenticacaoBean autenticacaoBean = new AutenticacaoBean();
 	
 //	public  TemperaturaBean() {
@@ -49,6 +52,14 @@ public class TemperaturaBean{
 	}
 	public String getUmidade() {
 		return umidade;
+	}
+	
+	public AutenticacaoBean getAutenticacaoBean() {
+		return autenticacaoBean;
+	}
+
+	public void setAutenticacaoBean(AutenticacaoBean autenticacaoBean) {
+		this.autenticacaoBean = autenticacaoBean;
 	}
 	
 	public TemperaturaBean() {
@@ -67,11 +78,12 @@ public class TemperaturaBean{
 	public void pegarvalor() {
 		verificaTemperatura verificaTemperatura =  new verificaTemperatura();
 		verificaTemperatura.run();
-		umidade = verificaTemperatura.umidade;
-		temperatura =  verificaTemperatura.temperatura;
-		int temperaturaint =  Integer.parseInt(temperatura);
+		//umidade = verificaTemperatura.umidade;
+		//temperatura =  verificaTemperatura.temperatura;
+		//int temperaturaint =  Integer.parseInt(temperatura);
+		int temperaturaint =  19;
 		
-		if (temperaturaint > 19) {
+		if (autenticacaoBean.getUsuarioLogado().getCPF() != null && autenticacaoBean.getUsuarioLogado().getTemperaturamax() <= temperaturaint) {
 			DispositivoDAO dao = new DispositivoDAO();
 			Dispositivo dispositivo =  (Dispositivo) dao.buscarPorCodigo(2L);
 			DispositivoBean bean  =  new DispositivoBean();

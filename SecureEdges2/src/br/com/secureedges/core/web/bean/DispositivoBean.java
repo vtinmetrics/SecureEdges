@@ -2,11 +2,11 @@ package br.com.secureedges.core.web.bean;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.secureedges.core.ClasseListener;
 import br.com.secureedges.core.dao.DispositivoDAO;
+import br.com.secureedges.core.dao.LogDAO;
 import br.com.secureedges.core.dao.SolicitacaoDAO;
 import br.com.secureedges.core.impl.controle.Fachada;
 import br.com.secureedges.core.web.command.ICommand;
@@ -24,6 +25,7 @@ import br.com.secureedges.domain.Comodo;
 import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.domain.Log;
+import br.com.secureedges.domain.ReportLog;
 import br.com.secureedges.domain.Solicitacao;
 import br.com.secureedges.domain.Tipo_Dispositivo;
 import br.com.secureedges.util.FacesUtil;
@@ -286,37 +288,95 @@ public class DispositivoBean extends EntidadeDominio {
 				power = 1;
 				log.setStatus("Ativado");
 				dispositivo.setDisp_status(1);
-			} else if (dispositivo.getDisp_status() == 1) {
+				
+				
+				
+				System.out.println("o status agora é:" + dispositivo.getDisp_status());
+
+				String aux = dispositivo.getInterface_Arduino().toString();
+				int teste = Integer.parseInt(aux);
+
+				System.out.println("Send power:" + power + "\n Interface: " + teste);
+				objArduino.getLink().sendPowerPinSwitch(teste, power); // Send
+																		// energy to
+				// the right pin
+				// of your
+				// sensor
+				ICommand command = commands.get("Editar");
+				/*
+				 * Executa o command que chamará a fachada para executar a operação requisitada
+				 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+				 * ou entidades de retorno
+				 */
+				command.execute(dispositivo);
+				log.setDispositivo(dispositivo.getCodigo());
+				log.setData(new Date());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				command = commands.get("Salvar");
+				command.execute(log);
+				return true;
+				
+				
+				
+			} 
+			
+			
+			
+			else if (dispositivo.getDisp_status() == 1) {
 				power = 0;
 				log.setStatus("Desativado");
 				dispositivo.setDisp_status(0);
+				
+				
+				
+				
+				
+				System.out.println("o status agora é:" + dispositivo.getDisp_status());
+
+				String aux = dispositivo.getInterface_Arduino().toString();
+				int teste = Integer.parseInt(aux);
+
+				System.out.println("Send power:" + power + "\n Interface: " + teste);
+				objArduino.getLink().sendPowerPinSwitch(teste, power); // Send
+																		// energy to
+				// the right pin
+				// of your
+				// sensor
+				ICommand command = commands.get("Editar");
+				/*
+				 * Executa o command que chamará a fachada para executar a operação requisitada
+				 * o retorno é uma instância da classe resultado que pode conter mensagens derro
+				 * ou entidades de retorno
+				 */
+				command.execute(dispositivo);
+				log.setDispositivo(dispositivo.getCodigo());
+				log.setData(new Date());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				command = commands.get("Salvar");
+				command.execute(log);
+				LogDAO dao =  new LogDAO();
+				log = (Log) dao.pegarultimo(dispositivo.getCodigo());
+				ReportLog reportLog = new ReportLog();
+				reportLog.setDataLigado(log.getData());
+				
+				SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				reportLog.setDataDesligado(new Date());
+				Date dataLiga =  dao.pegarData(dispositivo.getCodigo());
+				System.out.println("Data ligado: " + dataLiga);
+				System.out.println("Data desligado: " + reportLog.getDataDesligado());
+				long intervalo = getDateDiff(dataLiga, reportLog.getDataDesligado(), TimeUnit.MINUTES);
+				System.out.println("intervalo: " + intervalo);
+				reportLog.setIntervalo((int) intervalo);
+				reportLog.setDispositivo(dispositivo.getDescricao());
+				command = commands.get("Salvar");
+				command.execute(reportLog);
+				return true;
+				
+				
+				
+				
 
 			}
-
-			System.out.println("o status agora é:" + dispositivo.getDisp_status());
-
-			String aux = dispositivo.getInterface_Arduino().toString();
-			int teste = Integer.parseInt(aux);
-
-			System.out.println("Send power:" + power + "\n Interface: " + teste);
-			objArduino.getLink().sendPowerPinSwitch(teste, power); // Send
-																	// energy to
-			// the right pin
-			// of your
-			// sensor
-			ICommand command = commands.get("Editar");
-			/*
-			 * Executa o command que chamará a fachada para executar a operação requisitada
-			 * o retorno é uma instância da classe resultado que pode conter mensagens derro
-			 * ou entidades de retorno
-			 */
-			command.execute(dispositivo);
-			log.setDispositivo(dispositivo.getCodigo());
-			log.setData(new Date());
-			log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
-			command = commands.get("Salvar");
-			command.execute(log);
-			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -400,6 +460,11 @@ public class DispositivoBean extends EntidadeDominio {
 		}
 		return false;
 
+	}
+
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+		long diffInMillies = date2.getTime() - date1.getTime();
+		return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
 	}
 
 }
