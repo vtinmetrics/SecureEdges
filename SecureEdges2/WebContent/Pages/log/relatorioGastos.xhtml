@@ -18,7 +18,7 @@
 			<!-- columns="4"  dois por linha no painelGrid -->
 			<p:toolbar>
 				<f:facet name="left">
-					<h:outputText value="Solicitacões"></h:outputText>
+					<h:outputText value="Relatorio de Gastos"></h:outputText>
 				</f:facet>
 			</p:toolbar>
 
@@ -49,17 +49,18 @@
 				<p:column headerText="Data Desligado">
 					<h:outputText value="#{relatorio.dataDesligado}"></h:outputText>
 				</p:column>
-				<p:column headerText="Data" sortBy="#{relatorio.intervalo}">
+				<p:column headerText="Intervalo" sortBy="#{relatorio.intervalo}">
 					<h:outputText value="#{relatorio.intervalo}"></h:outputText>
+					<h:outputText value="  minutos"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Gasto" sortBy="#{relatorio.gasto}">
+					<h:outputText value="R$ "></h:outputText>
+					<h:outputText value="#{relatorio.gasto}"></h:outputText>
 				</p:column>
 
 
 
-
-				<!--  			<p:column headerText="Data" sortBy="#{relatorioGastosBean.valor}">
-					<h:outputText value="#{relatorioGastosBean.valor}"></h:outputText>
-				</p:column>
--->
 
 
 

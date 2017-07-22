@@ -1,5 +1,6 @@
 package br.com.secureedges.core.web.bean;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -357,11 +358,12 @@ public class DispositivoBean extends EntidadeDominio {
 				LogDAO dao =  new LogDAO();
 				log = (Log) dao.pegarultimo(dispositivo.getCodigo());
 				ReportLog reportLog = new ReportLog();
-				reportLog.setDataLigado(log.getData());
 				
 				SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-				reportLog.setDataDesligado(new Date());
+				Date atualaux = new Date();
+				reportLog.setDataDesligado(new Timestamp( atualaux.getTime()));
 				Date dataLiga =  dao.pegarData(dispositivo.getCodigo());
+				reportLog.setDataLigado((Timestamp) dataLiga);
 				System.out.println("Data ligado: " + dataLiga);
 				System.out.println("Data desligado: " + reportLog.getDataDesligado());
 				long intervalo = getDateDiff(dataLiga, reportLog.getDataDesligado(), TimeUnit.MINUTES);

@@ -28,11 +28,15 @@ public class RelatorioGastosBean {
 	private String acao;
 	private Fachada Fachada = new Fachada();
 	
+	
+	
+	
 	public void carregarPesquisa()
 	{
 		try
 		{
-			listagastos = Fachada.listar(new ReportLog());			
+			listagastos = Fachada.listar(new ReportLog());		
+			
 		}catch(RuntimeException ex)
 		{
 			

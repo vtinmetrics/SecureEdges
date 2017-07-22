@@ -8,8 +8,7 @@
 <ui:insert name="metadata" />
 
 <f:metadata>
-	<f:event listener="#{temperaturaBean.pegarvalor}"
-		type="preRenderView" />
+	<f:event listener="#{temperaturaBean.pegarvalor}" type="preRenderView" />
 </f:metadata>
 
 
@@ -42,6 +41,14 @@
 						rendered="#{autenticacaoBean.usuarioLogado.status == null}">
 
 					</p:menuitem>
+
+					<p:menuitem value="Relatorio de Gastos"
+						action="/Pages/log/relatorioGastos.xhtml?faces-redirect=true"
+						rendered="#{autenticacaoBean.usuarioLogado.status != null}">
+
+					</p:menuitem>
+					
+					
 
 
 

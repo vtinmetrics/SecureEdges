@@ -239,7 +239,7 @@ public class SolicitacaoBean {
 
 	public void carregarPesquisa() {
 		try {
-			listalog = Fachada.listar(new Log());
+			listalog = Fachada.listar(new Solicitacao());
 		} catch (RuntimeException ex) {
 
 			FacesUtil.adicionarMSGError("Erro ao tentar listar os  Usuarios:" + ex.getMessage());

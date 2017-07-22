@@ -31,7 +31,8 @@
 			<p:dataTable emptyMessage="Nenhum Registro Encontrado."
 				value="#{solicitacaoBean.listasolicitacoes}"
 				filteredValue="#{solicitacaoBean.listasolicitacoes}"
-				var="solicitacao" paginator="true" id="dtsolicitacao">
+				var="solicitacao" paginator="true" id="dtsolicitacao"
+				rendered="#{autenticacaoBean.usuarioLogado.status != null}">
 				<f:facet name="footer">
 					<p:button value="Relatorio"
 						outcome="/Pages/solicitacao/solicitacaoRelatorio.xhtml?faces-redirect=true"
