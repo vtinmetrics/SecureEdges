@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Log extends EntidadeDominio{
 	
- Long usuario ;
- Long dispositivo;
+ Usuario usuario = new Usuario() ;
+ Dispositivo dispositivo = new Dispositivo();
  String status;
  Date data;
-public Long getUsuario() {
+public Usuario getUsuario() {
 	return usuario;
 }
-public Long getDispositivo() {
+public Dispositivo getDispositivo() {
 	return dispositivo;
 }
 public String getStatus() {
@@ -20,10 +20,10 @@ public String getStatus() {
 public Date getData() {
 	return data;
 }
-public void setUsuario(Long usuario) {
+public void setUsuario(Usuario usuario) {
 	this.usuario = usuario;
 }
-public void setDispositivo(Long dispositivo) {
+public void setDispositivo(Dispositivo dispositivo) {
 	this.dispositivo = dispositivo;
 }
 public void setStatus(String status) {

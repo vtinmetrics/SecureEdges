@@ -33,7 +33,7 @@ import br.com.secureedges.util.FacesUtil;
 public class LogBean {
 	public String usuarioNome;
 	public List<EntidadeDominio> listaDispositivos = new ArrayList<>();
-	List<Dispositivo> listaDispositivosFiltrados;
+	List<Dispositivo> listalistalogFiltradas;
 	public List<EntidadeDominio> listalogs =  new ArrayList<>();
 	List<EntidadeDominio> listasolicitacoesFiltradas;
 	private List<Item> listaItens;
@@ -83,15 +83,12 @@ public class LogBean {
 		this.acao = acao;
 	}
 
-	public List<Dispositivo> getlistaDispositivosFiltrados() {
-		return listaDispositivosFiltrados;
+	public List<Dispositivo> getListalistalogFiltradas() {
+		return listalistalogFiltradas;
 	}
-
-	//
-	public void setlistaDispositivosFiltrados(List<Dispositivo> listaDispositivosFiltrados) {
-		this.listaDispositivosFiltrados = listaDispositivosFiltrados;
+	public void setListalogs(List<EntidadeDominio> listalogs) {
+		this.listalogs = listalogs;
 	}
-
 	public AutenticacaoBean getAutenticacaoBean() {
 		return autenticacaoBean;
 	}

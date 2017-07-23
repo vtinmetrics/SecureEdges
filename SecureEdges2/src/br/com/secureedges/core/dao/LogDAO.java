@@ -17,17 +17,21 @@ import com.mysql.jdbc.Statement;
 import br.com.secureedges.core.IDAO;
 import br.com.secureedges.core.util.factory.Conexao;
 import br.com.secureedges.domain.Log;
+import br.com.secureedges.domain.Usuario;
 import br.com.secureedges.domain.Dispositivo;
 import br.com.secureedges.domain.EntidadeDominio;
 import br.com.secureedges.util.FacesUtil;
 
 public class LogDAO implements IDAO {
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	DispositivoDAO dispositivoDAO = new DispositivoDAO();
 	public Long Salvar(EntidadeDominio entidade) throws SQLException {
 		if (!(entidade instanceof Log))
 			return null;
 
 		Log log = new Log();
 		log = (Log) entidade;
+		
 
 		StringBuffer sql = new StringBuffer();
 
@@ -43,8 +47,8 @@ public class LogDAO implements IDAO {
 			String vendaHorario = stf.format(log.getData());
 			int i = 0;
 			pstm.setLong(++i, log.getCodigo());
-			pstm.setLong(++i, log.getUsuario());
-			pstm.setLong(++i, log.getDispositivo());
+			pstm.setLong(++i, log.getUsuario().getCodigo());
+			pstm.setLong(++i, log.getDispositivo().getCodigo());
 			pstm.setString(++i, vendaHorario);
 			pstm.setString(++i, log.getStatus());
 
@@ -82,6 +86,7 @@ public class LogDAO implements IDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM db_secureedges.tb_log;");
 		List<EntidadeDominio> lista = new ArrayList<EntidadeDominio>();
+		
 
 		Connection con = Conexao.getConnection();
 
@@ -93,9 +98,11 @@ public class LogDAO implements IDAO {
 
 				Log log = new Log();
 				log.setCodigo(rSet.getLong("id_log"));
-				log.setUsuario(rSet.getLong("id_usuario"));
-				log.setDispositivo(rSet.getLong("id_dispositivo"));
-				log.setData(rSet.getDate("data_operacao"));
+				Usuario usrAux = usuarioDAO.buscarPorCodigo(rSet.getLong("id_usuario"));
+				Dispositivo dispositivo  = (Dispositivo) dispositivoDAO.buscarPorCodigo(rSet.getLong("id_dispositivo"));
+				log.setUsuario(usrAux);
+				log.setDispositivo(dispositivo);
+				log.setData(rSet.getTimestamp("data_operacao"));
 				log.setStatus(rSet.getString("log_status"));
 
 				lista.add(log);
@@ -139,11 +146,14 @@ public class LogDAO implements IDAO {
 			pstm.setLong(1, id);
 			ResultSet rSet = pstm.executeQuery();
 
+
 			while (rSet.next()) {
 				log.setCodigo(rSet.getLong("id_log"));
-				log.setUsuario(rSet.getLong("id_usuario"));
-				log.setDispositivo(rSet.getLong("id_dispositivo"));
-				log.setData(rSet.getDate("data_operacao"));
+				Usuario usrAux = usuarioDAO.buscarPorCodigo(rSet.getLong("id_usuario"));
+				Dispositivo dispositivo = (Dispositivo) dispositivoDAO.buscarPorCodigo(rSet.getLong("id_dispositivo"));
+				log.setUsuario(usrAux);
+				log.setDispositivo(dispositivo);
+				log.setData(rSet.getTimestamp("data_operacao"));
 				log.setStatus(rSet.getString("log_status"));
 
 			}

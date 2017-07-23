@@ -310,9 +310,9 @@ public class DispositivoBean extends EntidadeDominio {
 				 * ou entidades de retorno
 				 */
 				command.execute(dispositivo);
-				log.setDispositivo(dispositivo.getCodigo());
+				log.setDispositivo(dispositivo);
 				log.setData(new Date());
-				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado());
 				command = commands.get("Salvar");
 				command.execute(log);
 				return true;
@@ -350,9 +350,9 @@ public class DispositivoBean extends EntidadeDominio {
 				 * ou entidades de retorno
 				 */
 				command.execute(dispositivo);
-				log.setDispositivo(dispositivo.getCodigo());
+				log.setDispositivo(dispositivo);
 				log.setData(new Date());
-				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado());
 				command = commands.get("Salvar");
 				command.execute(log);
 				LogDAO dao =  new LogDAO();
@@ -449,9 +449,9 @@ public class DispositivoBean extends EntidadeDominio {
 				 * ou entidades de retorno
 				 */
 				command.execute(dispositivo);
-				log.setDispositivo(dispositivo.getCodigo());
+				log.setDispositivo(dispositivo);
 				log.setData(new Date());
-				log.setUsuario(autenticacaoBean.getUsuarioLogado().getCodigo());
+				log.setUsuario(autenticacaoBean.getUsuarioLogado());
 				command = commands.get("Salvar");
 				command.execute(log);
 			}

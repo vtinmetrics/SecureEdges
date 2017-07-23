@@ -8,8 +8,7 @@
 <ui:composition template="/templates/modeloGeral.xhtml">
 	<ui:define name="metadate">
 		<f:metadata>
-			<f:event listener="#{logBean.carregarPesquisa}"
-				type="preRenderView"></f:event>
+			<f:event listener="#{logBean.carregarPesquisa}" type="preRenderView"></f:event>
 		</f:metadata>
 	</ui:define>
 
@@ -29,9 +28,9 @@
 
 
 			<p:dataTable emptyMessage="Nenhum Registro Encontrado."
-				value="#{logBeann.listalogs}"
-				filteredValue="#{logBeann.listalistalogFiltradas}"
-				var="solicitacao" paginator="true" id="dtsolicitacao">
+				value="#{logBean.listalogs}"
+				filteredValue="#{logBean.listalistalogFiltradas}" var="solicitacao"
+				paginator="true" id="dtsolicitacao">
 
 				<!-- filterBy="" filtrar  sortBy="" ordenar -->
 				<p:column headerText="Codigo">
@@ -45,6 +44,10 @@
 				</p:column>
 				<p:column headerText="Data" sortBy="#{solicitacao.data}">
 					<h:outputText value="#{solicitacao.data}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Status" sortBy="#{solicitacao.status}">
+					<h:outputText value="#{solicitacao.status}"></h:outputText>
 				</p:column>
 
 
