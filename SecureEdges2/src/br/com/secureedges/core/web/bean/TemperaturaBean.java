@@ -29,7 +29,7 @@ import br.com.secureedges.domain.Log;
 public class TemperaturaBean{
 	public String umidade;
 	public String temperatura;
-	InputTest orquestrador =  new InputTest();
+	verificaTemperatura orquestrador =  new verificaTemperatura();
 	
 	
 
@@ -40,12 +40,16 @@ public class TemperaturaBean{
 	@ManagedProperty(value = "#{autenticacaoBean}")
 	private AutenticacaoBean autenticacaoBean = new AutenticacaoBean();
 	
-//	public  TemperaturaBean() {
-//		orquestrador.contextInitialized(null);
-//		umidade = orquestrador.umidade;
-//		temperatura = orquestrador.temperatura;
+	public  TemperaturaBean() {
+		orquestrador.run();
+		umidade = orquestrador.umidade;
+		temperatura = orquestrador.temperatura;
+		commands = new HashMap<String, ICommand>();
+		commands.put("Salvar", new SalvarCommand());
+		commands.put("Excluir", new ExcluirCommand());
+		commands.put("Editar", new AlterarCommand());
 	
-//	}
+	}
 	
 	public String getTemperatura() {
 		return temperatura;
@@ -62,26 +66,15 @@ public class TemperaturaBean{
 		this.autenticacaoBean = autenticacaoBean;
 	}
 	
-	public TemperaturaBean() {
-			/*
-			 * Utilizando o command para chamar a fachada e indexando cada command
-			 * pela operação garantimos que esta servelt atenderá qualquer operação
-			 */
-			commands = new HashMap<String, ICommand>();
-			commands.put("Salvar", new SalvarCommand());
-			commands.put("Excluir", new ExcluirCommand());
-			commands.put("Editar", new AlterarCommand());
-		
-	}
 	
 	
 	public void pegarvalor() {
 		verificaTemperatura verificaTemperatura =  new verificaTemperatura();
 		verificaTemperatura.run();
-		//umidade = verificaTemperatura.umidade;
-		//temperatura =  verificaTemperatura.temperatura;
-		//int temperaturaint =  Integer.parseInt(temperatura);
-		int temperaturaint =  19;
+		System.out.println(verificaTemperatura);
+		umidade = verificaTemperatura.umidade;
+		temperatura =  verificaTemperatura.temperatura;
+		int temperaturaint =  Integer.parseInt(temperatura);
 		
 		if (autenticacaoBean.getUsuarioLogado().getCPF() != null && autenticacaoBean.getUsuarioLogado().getTemperaturamax() <= temperaturaint) {
 			DispositivoDAO dao = new DispositivoDAO();

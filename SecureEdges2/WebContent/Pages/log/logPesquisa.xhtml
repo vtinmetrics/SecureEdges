@@ -16,8 +16,8 @@
 		<h:form id="formsolicitacao">
 			<!-- columns="4"  dois por linha no painelGrid -->
 			<p:toolbar>
-				<f:facet name="left">
-					<h:outputText value="Solicitacões"></h:outputText>
+				<f:facet name="footer">
+					<h:outputText value="Relatório de manipulacoes"></h:outputText>
 				</f:facet>
 			</p:toolbar>
 
@@ -32,12 +32,28 @@
 				filteredValue="#{logBean.listalistalogFiltradas}" var="solicitacao"
 				paginator="true" id="dtsolicitacao">
 
+					<f:facet name="header">
+						<h:commandLink>
+							<p:graphicImage name="pdf.jpg" width="24" library="images" />
+							<p:dataExporter type="pdf" target="dtsolicitacao"
+								fileName="log" encoding="ISO-8859-1" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="excel.jpg" width="24" library="images" />
+							<p:dataExporter type="xls" target="dtsolicitacao"
+								fileName="log" encoding="ISO-8859-1" />
+						</h:commandLink>
+
+					</f:facet>
 				<!-- filterBy="" filtrar  sortBy="" ordenar -->
 				<p:column headerText="Codigo">
 					<h:outputText value="#{solicitacao.codigo}"></h:outputText>
 				</p:column>
 				<p:column headerText="Usuario">
 					<h:outputText value="#{solicitacao.usuario.nome}"></h:outputText>
+					<h:outputText value="Sistema"
+						rendered="#{solicitacao.usuario.nome == null}"></h:outputText>
 				</p:column>
 				<p:column headerText="Dispositivo">
 					<h:outputText value="#{solicitacao.dispositivo.descricao}"></h:outputText>

@@ -17,9 +17,7 @@
 	<listener>
 		<listener-class>br.com.secureedges.core.ClasseListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>br.com.secureedges.core.InputTest</listener-class>
-	</listener>
+
 
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>

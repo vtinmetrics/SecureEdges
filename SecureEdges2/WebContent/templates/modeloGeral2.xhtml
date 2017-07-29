@@ -22,7 +22,7 @@
 	<p:growl id="msgGlobal" />
 	<p:layout fullPage="true">
 
-		<p:layoutUnit position="north" size="100" header="Secure Edges"
+		<p:layoutUnit position="north" size="100" header="SGRD"
 			resizable="false" closable="false" collapsible="false">
 
 			<h:form id="frmMenuSuperior">
@@ -47,8 +47,15 @@
 						rendered="#{autenticacaoBean.usuarioLogado.status != null}">
 
 					</p:menuitem>
-					
-					
+
+
+					<p:menuitem value="Relatorio de logs"
+						action="/Pages/log/logPesquisa.xhtml?faces-redirect=true"
+						rendered="#{autenticacaoBean.usuarioLogado.status != null}">
+
+					</p:menuitem>
+
+
 
 
 
@@ -73,7 +80,8 @@
 						<p:menuitem value="Comodos"
 							outcome="/Pages/comodo/comodoPesquisa.xhtml" />
 					</p:submenu>
-					<p:submenu label="Solicitações">
+					<p:submenu label="Solicitações"
+					rendered="#{autenticacaoBean.usuarioLogado.status != null}">
 						<p:menuitem value="Visualizar Todas"
 							rendered="#{autenticacaoBean.usuarioLogado.status == 'admin'}"
 							outcome="/Pages/solicitacao/solicitacaoPesquisa.xhtml" />

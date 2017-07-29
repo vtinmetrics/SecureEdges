@@ -39,8 +39,8 @@ public class InputTest implements ServletContextListener {
 				String aux = aa.toString();
 				umidade = aux.substring(0, 2);
 				temperatura = aux.substring(2, 4);
-				// System.out.println("Essa e a temperatura " + temperatura);
-				// System.out.println("Essa e a umidade " + umidade);
+				 System.out.println("Essa e a temperatura " + temperatura);
+				 System.out.println("Essa e a umidade " + umidade);
 				// System.out.println(e.getIncomingMessage());
 			}
 
